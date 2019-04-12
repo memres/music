@@ -6,6 +6,7 @@ $token = isset($_GET['t']) ? $_GET['t'] : '';
 if ($query) {
 	$api = "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&videoEmbeddable=true&key=$key&prettyPrint=false&fields=nextPageToken,items(id(videoId),snippet(title))&q=".urlencode($query);
 	if ($token) $api .= "&pageToken=$token";
+	if (strtolower($query) != 'rammstein') $api .= '&videoCategoryId=10'; /* interestingly Rammstein's music videos are not in Music category */
 	$opts = array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false));
 	$json = json_decode(@file_get_contents($api, false, stream_context_create($opts)), true);
 	if (isset($json['items'][0])) {
