@@ -1,14 +1,4 @@
 <?php
-/*
-Hello, 
-To be able to use this application, you should get an API key from
-https://console.developers.google.com/apis/api/youtube.googleapis.com
-*
-Combining CSS3, HTML5, PHP7 and pure JavaScript with YouTube Data API,
-I've created it for listening to music especially on my mobile devices.
-Have fun!
-- Emre
-*/
 $key = ''; /* Type you API key here */
 $id = '';
 $query = isset($_GET['q']) ? $_GET['q'] : '';
@@ -16,7 +6,6 @@ $token = isset($_GET['t']) ? $_GET['t'] : '';
 if ($query) {
 	$api = "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&videoEmbeddable=true&key=$key&prettyPrint=false&fields=nextPageToken,items(id(videoId),snippet(title))&q=".urlencode($query);
 	if ($token) $api .= "&pageToken=$token";
-	if (strtolower($query) != 'rammstein') $api .= '&videoCategoryId=10';
 	$opts = array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false));
 	$json = json_decode(@file_get_contents($api, false, stream_context_create($opts)), true);
 	if (isset($json['items'][0])) {
@@ -129,7 +118,7 @@ if ($query) {
 				<input type="search" name="q" id="search" placeholder="Search music&hellip;" value="<?= htmlspecialchars($query, ENT_QUOTES); ?>"/><input type="submit" value="►"/>
 			</form>
 <?php if ($id) { ?>
-			<p><b><?= $title; ?></b><br/><a class="light" href="<?= strtok($_SERVER["REQUEST_URI"],'?'); ?>">Main</a> • <a class="dark" href="javascript:stop();">Stop</a><?php if ($page) { ?> • <a href="javascript:next();">Next</a><?php } ?></p>
+			<p><b><?= $title; ?></b><br/><a class="light" href="<?= strtok($_SERVER['REQUEST_URI'], '?'); ?>">Main</a> • <a class="dark" href="javascript:stop();">Stop</a><?php if ($page) { ?> • <a href="javascript:next();">Next</a><?php } ?></p>
 			<audio controls></audio>
 			<aside id="youtube"></aside>
 		</main>
@@ -181,9 +170,9 @@ if ($query) {
 				tag.src = "https://www.youtube.com/iframe_api";
 				var firstScriptTag = document.getElementsByTagName('script')[0];
 				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+				var player;
 			}
 			function onYouTubeIframeAPIReady() {
-				var player;
 				player = new YT.Player('youtube', {
 					host: 'https://www.youtube-nocookie.com',
 					videoId: '<?= $id; ?>',
