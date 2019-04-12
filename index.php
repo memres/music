@@ -148,7 +148,7 @@ if ($query) {
 							if (quality) audios[quality] = stream.url;
 						});
 						console.log(audios);
-						audio.src = audios['mp3'];
+						audio.src = audios['mp3']; /* you have two options here: mp3 or webm */
 						audio.play();
 					})
 				}
@@ -162,6 +162,7 @@ if ($query) {
 					return params;
 				}, {});
 			}
+			/* most videos' direct audio links are forbidden by youtube, so I must unfortunately add the embedding option */
 			audio.onerror = function() {
 				audio.style.display = 'none';
 				var ytplayer = document.querySelector('aside');
