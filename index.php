@@ -1,19 +1,40 @@
 <?php
-$key = ''; /* Type you API key here */
+/* Hello, this is a music application to listen to some great sounds especially on mobile devices.
+*
+You should firstly type your YouTube Data API key here which you can obtain at: https://console.developers.google.com/apis/api/youtube.googleapis.com/ */
+$key_youtube = '';
+/* and your Last.fm API key here which you can obtain at: https://www.last.fm/api/account/create */
+$key_lastfm = '';
+/* thanks and have fun! */
 $id = '';
 $query = isset($_GET['q']) ? $_GET['q'] : '';
 $token = isset($_GET['t']) ? $_GET['t'] : '';
 if ($query) {
-	$api = "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&videoEmbeddable=true&key=$key&prettyPrint=false&fields=nextPageToken,items(id(videoId),snippet(title))&q=".urlencode($query);
+	/* let's get the necessary informations via YouTube Data API */
+	$api = "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&videoSyndicated=true&prettyPrint=false&fields=nextPageToken,items(id(videoId),snippet(title))&key=$key_youtube&q=".urlencode($query);
 	if ($token) $api .= "&pageToken=$token";
-	if (strtolower($query) != 'rammstein') $api .= '&videoCategoryId=10'; /* interestingly Rammstein's music videos are not in Music category */
+	if (strtolower($query) != 'rammstein') $api .= '&videoCategoryId=10'; /* interestingly Rammstein's music videos are not in music category */
 	$opts = array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false));
 	$json = json_decode(@file_get_contents($api, false, stream_context_create($opts)), true);
 	if (isset($json['items'][0])) {
 		$id = $json['items'][0]['id']['videoId'];
 		$title = $json['items'][0]['snippet']['title'];
-		$page = isset($json['nextPageToken']) ? $json['nextPageToken'] : null;
+		$page = isset($json['nextPageToken']) ? $json['nextPageToken'] : '';
 	}
+}
+else {
+	/* let's get top artists via Last.fm API */
+	$user = 'memres';
+	/* you can change the username with yours */
+	$api = "http://ws.audioscrobbler.com/2.0/?method=user.getTopArtists&user=$user&api_key=$key_lastfm&format=json";
+	$json = json_decode(@file_get_contents($api), true);
+	$suggestions = '			<h4>Some awesome suggestions:</h4>';
+	foreach ($json['topartists']['artist'] as $item) {
+		$artists[] = '<a href="?q='.urlencode($item['name']).'">'.$item['name'].'</a>';
+	}
+	shuffle($artists);
+	$artists = array_slice($artists, 0, 24, true);
+	$suggestions .= implode("\n			", $artists)."\n		</main>\n";
 }
 ?>
 <!DOCTYPE html>
@@ -21,7 +42,7 @@ if ($query) {
     <head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title><?php if ($id) echo $title; else echo 'YTMusic'; ?></title>
+		<title><?php if ($id) echo $title; else echo 'Music'; ?></title>
 		<style>
 			body {
 				margin: 0;
@@ -57,45 +78,46 @@ if ($query) {
 				border: 0;
 				outline: 0;
 				color: #fff;
-				font-size: 1.5em;
-				line-height: 1.5;
+				font-size: 1.2em;
+				line-height: 26px;
 			}
 			input[type=search] {
 				width: 85%;
-				padding: .5em 1em;
+				padding: 14px;
 				background: #201c29;
 				border-top-left-radius: 30px;
 				border-bottom-left-radius: 30px;
 			}
 			input[type=submit] {
 				width: 15%;
-				padding: .5em 0;
+				padding: 14px 0;
 				cursor: pointer;
 				border-top-right-radius: 30px;
 				border-bottom-right-radius: 30px;
 				background-image: linear-gradient(to right, #ff8a00, #da1b60);
 			}
-			a {
+			h4 {
+				margin: 1em;
+				text-shadow: 2px 2px 4px #201c29;
+			}
+			a, a.alt:hover {
 				outline: 0;
-				color: #ff8a00;
-				cursor: pointer;
-				font-weight: bold;
-			}
-			.dark {
-				color: #da1b60;
-			}
-			.light {
-				color: #dedede;
-			}
-			a:hover {
+				text-decoration: none;
+				display: inline-block;
+				margin: 0 2px 8px;
+				padding: 8px;
+				border-radius: 8px;
 				color: #fff;
+				text-shadow: 2px 2px 4px #201c29;
+				background-image: linear-gradient(to right, #ff8a00, #da1b60);
 			}
-			i {
-				color: #201c29;
+			a:hover, a.alt, input[type=submit]:hover {
+				background-image: linear-gradient(to right, #da1b60, #ff8a00);
 			}
 			audio {
 				outline: 0;
 				width: 100%;
+				margin-top: 1em;
 			}
 			aside, img {
 				display: none;
@@ -105,6 +127,7 @@ if ($query) {
 				outline: 0;
 				width: 100%;
 				height: 180px;
+				margin-top: 1em;
 			}
 			@media only screen and (max-width: 480px) {
 				iframe {
@@ -116,16 +139,21 @@ if ($query) {
 	<body <?php if (!$id) echo 'onload="document.querySelector(\'input[type=search]\').focus();"'; ?>>
 		<main>
 			<form>
-				<input type="search" name="q" id="search" placeholder="Search music&hellip;" value="<?= htmlspecialchars($query, ENT_QUOTES); ?>"/><input type="submit" value="►"/>
+				<input type="search" name="q" id="search" placeholder="Search music&hellip;" value="<?= htmlspecialchars($query, ENT_QUOTES); ?>"/><input type="submit" value="&#9654;"/>
 			</form>
 <?php if ($id) { ?>
-			<p><b><?= $title; ?></b><br/><a class="light" href="<?= strtok($_SERVER['REQUEST_URI'], '?'); ?>">Main</a> • <a class="dark" href="javascript:stop();">Stop</a><?php if ($page) { ?> • <a href="javascript:next();">Next</a><?php } ?></p>
-			<audio controls></audio>
+			<h4><?= $title; ?></h4>
+			<a href="<?= strtok($_SERVER['REQUEST_URI'], '?'); ?>">Main</a>
+			<a class="alt" href="javascript:stop();">Stop</a>
+<?php if ($page) { ?>
+			<a href="javascript:next();">Next</a>
+<?php } ?>
+			<img src="https://i.ytimg.com/vi/<?= $id; ?>/maxresdefault.jpg" alt=""/>
+			<audio autoplay controls></audio>
 			<aside id="youtube"></aside>
 		</main>
-		<img src="https://i.ytimg.com/vi/<?= $id; ?>/maxresdefault.jpg" alt=""/>
 		<script>
-			/*3r_Z5AYJJd4*/
+			/* based on the answer by 350D at https://stackoverflow.com/a/45375023 */
 			var vid = '<?= $id; ?>', audios = {}, audio = document.querySelector('audio');
 			fetch("https://images" + ~~(Math.random() * 33) + "-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=https%3A%2F%2Fwww.youtube.com%2Fget_video_info%3Fvideo_id%3D" + vid).then(response => {
 				if (response.ok) {
@@ -141,14 +169,17 @@ if ($query) {
 								case 140:
 								quality = 'mp3';
 								break;
+								/*
+								< alternative audio option >
 								case 171:
 								quality = 'webm';
 								break;
+								*/
 							}
 							if (quality) audios[quality] = stream.url;
 						});
-						console.log(audios);
-						audio.src = audios['mp3']; /* you have two options here: mp3 or webm */
+						/* console.log(audios); <- for testing purposes */
+						audio.src = audios['mp3'];
 						audio.play();
 					})
 				}
@@ -162,7 +193,7 @@ if ($query) {
 					return params;
 				}, {});
 			}
-			/* most videos' direct audio links are forbidden by youtube, so I must unfortunately add the embedding option */
+			/* if youtube forbides the direct link, compulsorily put embed player */
 			audio.onerror = function() {
 				audio.style.display = 'none';
 				var ytplayer = document.querySelector('aside');
@@ -213,12 +244,11 @@ if ($query) {
 					audio.currentTime = 0;
 				}
 			}
+			/* if the max-sized image is available, change the background with it */
 			document.querySelector('img').onload = function() {
 				if (this.naturalWidth == 1280) document.body.style.backgroundImage = 'url(' + this.getAttribute('src') + ')';
 			}
 		</script>
-<?php } else { ?>
-		</main>
-<?php } ?>
+<?php } else { echo $suggestions; } ?>
 	</body>
 </html>
