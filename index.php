@@ -139,7 +139,7 @@ else {
 	<body <?php if (!$id) echo 'onload="document.querySelector(\'input[type=search]\').focus();"'; ?>>
 		<main>
 			<form>
-				<input type="search" name="q" id="search" placeholder="Search music&hellip;" value="<?= htmlspecialchars($query, ENT_QUOTES); ?>"/><input type="submit" value="&#9654;"/>
+				<input type="search" name="q" id="search" placeholder="Search music&hellip;" value="<?= htmlspecialchars($query, ENT_QUOTES); ?>"/><input type="submit" value="►"/>
 			</form>
 <?php if ($id) { ?>
 			<h4><?= $title; ?></h4>
