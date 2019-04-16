@@ -9,8 +9,7 @@ $id = '';
 $query = isset($_GET['q']) ? $_GET['q'] : '';
 $token = isset($_GET['t']) ? $_GET['t'] : '';
 if ($query) {
-	$api = "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&videoSyndicated=true&prettyPrint=false&fields=nextPageToken,items(id(videoId),snippet(title))&
-	=$key_youtube&q=".urlencode($query);
+	$api = "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&videoSyndicated=true&prettyPrint=false&fields=nextPageToken,items(id(videoId),snippet(title))&key=$key_youtube&q=".urlencode($query);
 	if ($token) $api .= "&pageToken=$token";
 	if (strtolower($query) != 'rammstein') $api .= '&videoCategoryId=10';
 	$opts = array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false));
@@ -41,6 +40,7 @@ else {
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<meta name="description" content="Listen to music hassle free."/>
+		<meta name="author" content="hello@emresanli.com"/>
 		<title><?php if ($id) echo $title; else echo 'Music'; ?></title>
 		<style>
 			@import url(https://use.fontawesome.com/releases/v5.7.2/css/all.css);
