@@ -1,10 +1,10 @@
 <?php
-/* This application needs some API keys which you can obtain for free to work properly. */
-/* YouTube Data API key: https://console.developers.google.com/apis/api/youtube.googleapis.com/ */
+/* This application needs some API keys which you can obtain from the official sites. */
+/* YouTube Data API key ► https://console.developers.google.com/apis/api/youtube.googleapis.com/ */
 $key_youtube = '';
-/* Last.fm API key: https://www.last.fm/api/account/create */
+/* Last.fm API key ► https://www.last.fm/api/account/create */
 $key_lastfm = '';
-/* Thanks and have fun! */
+/* That's all! */
 $id = '';
 $query = isset($_GET['q']) ? $_GET['q'] : '';
 $token = isset($_GET['t']) ? $_GET['t'] : '';
@@ -25,13 +25,13 @@ else {
 	$country = isset($ip['country']) ? $ip['country'] : 'United States';
 	$number = rand(1, 20);
 	$api = "http://ws.audioscrobbler.com/2.0/?method=geo.getTopArtists&api_key=$key_lastfm&format=json&limit=24&page=$number&country=".urlencode($country);
-	$suggestions = "			<h4 data-country=\"$country\" data-page=\"$number\">Featured artists:</h4>\n";
+	$featured = "			<h4 data-country=\"$country\" data-page=\"$number\">Featured artists:</h4>\n";
 	$json = json_decode(@file_get_contents($api), true);
 	foreach ($json['topartists']['artist'] as $item) {
 		$artists[] = '			<a href="?q='.urlencode($item['name']).'">'.$item['name']."</a>\n";
 	}
 	shuffle($artists);
-	$suggestions .= implode($artists)."		</main>\n";
+	$featured .= implode($artists)."		</main>\n";
 }
 ?>
 <!DOCTYPE html>
@@ -39,7 +39,7 @@ else {
     <head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<meta name="description" content="Listen to music hassle free."/>
+		<meta name="description" content="Create random playlists. Listen to endless music."/>
 		<meta name="author" content="hello@emresanli.com"/>
 		<title><?php if ($id) echo $title; else echo 'Music'; ?></title>
 		<style>
@@ -53,7 +53,7 @@ else {
 				height: 100vh;
 				place-items: center center;
 				background-color: #fff;
-				background-image: url(https://i.ytimg.com/vi/<?php if ($id) echo $id.'/hq'; else { $bg = array('wPzYJu1j1bI', '_zSXFUcQ7qA', 'gmU9PBDS-0k', 'OeHLHNKQCXA', 'fNh2yB0w8gU', 'hlWiI4xVXKY', 'BaMBQSsdnxo', '58GQx4xEdlY', 'CVvdAWp37jw', '6MztEmTkvqo', 'FkWHg3lvZXw', 'xwQ5YpcCDHk'); echo $bg[array_rand($bg)].'/maxres'; } #FkWHg3lvZXw ?>default.jpg);
+				background-image: url(https://i.ytimg.com/vi/<?php if ($id) echo $id.'/hq'; else { $bg = array('FkWHg3lvZXw', 'wPzYJu1j1bI', '_zSXFUcQ7qA', 'gmU9PBDS-0k', 'OeHLHNKQCXA', 'fNh2yB0w8gU', 'hlWiI4xVXKY', 'BaMBQSsdnxo', '58GQx4xEdlY', 'CVvdAWp37jw', '6MztEmTkvqo', 'xwQ5YpcCDHk'); echo $bg[array_rand($bg)].'/maxres'; } ?>default.jpg);
 				background-size: cover;
 				background-repeat: no-repeat;
 				background-attachment: fixed;
@@ -70,10 +70,7 @@ else {
 				border-radius: 30px;
 				box-shadow: 2px 2px 10px #246756;
 				background-image: radial-gradient(farthest-side at bottom left, rgba(255, 0, 255, 0.5), #246756), radial-gradient(farthest-corner at bottom right, rgba(255, 50, 50, 0.5), #246756 400px);
-				opacity: 0.9;
-			}
-			form {
-				margin: 0;
+				opacity: 0.95;
 			}
 			input {
 				margin: 0;
@@ -132,12 +129,12 @@ else {
 				border: 0;
 				outline: 0;
 				width: 100%;
-				height: 200px;
+				height: calc((9/16)*75vw);
 				margin-top: 1em;
 			}
-			@media only screen and (max-width: 480px) {
+			@media(min-width: 480px) {
 				iframe {
-					height: calc((9/16)*75vw);
+					height: 200px;
 				}
 			}
 		</style>
@@ -156,9 +153,7 @@ else {
 			<i class="fas fa-play"></i>
 			<i class="fas fa-undo-alt"></i>
 			<i class="fas fa-history"></i>
-<?php if ($page) { ?>
-			<i class="fas fa-forward" onclick="javascript:next();"></i>
-<?php } ?>
+			<i class="fas fa-forward" onclick="next();"></i>
 			<img src="https://i.ytimg.com/vi/<?= $id; ?>/maxresdefault.jpg" alt=""/>
 			<audio controls></audio>
 			<div id="youtube"></div>
@@ -216,10 +211,8 @@ else {
 				player = new YT.Player('youtube', {
 					videoId: '<?= $id; ?>',
 					playerVars: {
-						'autoplay': 1,
 						'iv_load_policy': 3,
 						'modestbranding': 1,
-						'playsinline': 1,
 						'rel': 0,
 						'showinfo': 0
 					},
@@ -229,19 +222,6 @@ else {
 					}
 				});
 				player.getIframe().style.display = 'none';
-			}
-			loop.onclick = function() {
-				loop.style.display = 'none';
-				looped.style.display = 'inline-block';
-			}
-			looped.onclick = function() {
-				looped.style.display = 'none';
-				loop.style.display = 'inline-block';
-			}
-<?php if ($page) { ?>
-			audio.onended = function() {
-				if (loop.style.display == 'none') audio.play();
-				else next();
 			}
 			function onPlayerStateChange(event) {
 				if (event.data == YT.PlayerState.ENDED) {
@@ -257,12 +237,23 @@ else {
 					pause.style.display = 'inline-block';
 				}
 			}
-			function next() {
-				window.location.href = '?q=<?= urlencode($query).'&t='.$page; ?>';
-			}
-<?php } ?>
 			function onPlayerReady(event) {
 				event.target.playVideo();
+			}
+			audio.onended = function() {
+				if (loop.style.display == 'none') audio.play();
+				else next();
+			}
+			function next() {
+				window.location.href = '?q=<?= urlencode($query)."&t=$page"; ?>';
+			}
+			loop.onclick = function() {
+				loop.style.display = 'none';
+				looped.style.display = 'inline-block';
+			}
+			looped.onclick = function() {
+				looped.style.display = 'none';
+				loop.style.display = 'inline-block';
 			}
 			video.onclick = function() {
 				player.getIframe().style.display = 'inline-block';
@@ -297,12 +288,10 @@ else {
 							else audio.pause();
 						}
 					}
-<?php if ($page) { ?>
 					if (event.keyCode == 13) next();
-<?php } ?>
 				}
 			}
 		</script>
-<?php } else echo $suggestions; ?>
+<?php } else echo $featured; ?>
 	</body>
 </html>
