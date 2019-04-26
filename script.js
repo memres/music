@@ -1,6 +1,6 @@
 $(function(){
 	var id = $('body').attr('id'),
-	audio = document.querySelector('audio'),
+	audio = $('audio').get(0),
 	loader = 'url(https://cdn.dribbble.com/users/563824/screenshots/3633228/untitled-5.gif)';
 	play(id);
 	function next() {
