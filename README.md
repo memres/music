@@ -1,2 +1,2 @@
 # music
-Create random playlists. Listen to endless music.
+Listen to random music with or without playlists.
