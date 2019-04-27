@@ -55,6 +55,7 @@ else {
 		<meta name="description" content="Listen to anything random."/>
 		<meta name="author" content="hello@emresanli.com"/>
 		<title><?php if ($id) echo $title; else echo 'Music &#9835;'; ?></title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"/>
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/memres/music@1.0/style.min.css"/>
 
