@@ -1,5 +1,5 @@
 			$(function(){
-				var track = $('audio').attr('data-track');
+				var track = $('audio').attr('data-track'), audio = $('audio')[0];
 				play(track);
 				function next() {
 					$.ajax({
@@ -20,7 +20,7 @@
 				}
 				function play(id) {
 					$('audio').attr('src', 'https://invidio.us/latest_version?itag=251&local=true&id=' + id);
-					$('audio').get(0).play();
+					audio.play();
 					bg(id);
 				}
 				function bg(id) {
@@ -36,11 +36,11 @@
 							$('body').css('background-image', 'url(' + hq + ')');
 						}
 					});
-					if (!$('audio')[0].playing) $('audio').get(0).play();
+					if (!audio.playing) audio.play();
 				}
 				$('audio').on('ended', function() {
 					if ($('.fa-history').length) {
-						$('audio')[0].play();
+						audio.play();
 						$('.fa-history').removeClass('fa-history').addClass('fa-sync-alt fa-spin');
 						setTimeout(function(){$('.fa-sync-alt').removeClass('fa-sync-alt fa-spin').addClass('fa-history');}, 500);
 					}
@@ -54,11 +54,11 @@
 				});
 				$(document).on('click', '.fa-pause', function() {
 					$(this).removeClass('fa-pause').addClass('fa-play');
-					$('audio')[0].pause();
+					audio.pause();
 				});
 				$(document).on('click', '.fa-play', function() {
 					$(this).removeClass('fa-play').addClass('fa-pause');
-					$('audio')[0].play();
+					audio.play();
 				});
 				$(document).on('click', '.fa-undo-alt', function() {
 					$(this).removeClass('fa-undo-alt').addClass('fa-history');
@@ -72,8 +72,8 @@
 				$(document).on('keyup', function(event) {
 					if (event.target.tagName != 'INPUT') {
 						if (event.which == 32) {
-							if (!$('audio')[0].paused) $('audio')[0].pause();
-							else $('audio')[0].play();
+							if (!audio.paused) audio.pause();
+							else audio.play();
 						}
 						if (event.which == 13) next();
 					}
