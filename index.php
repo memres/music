@@ -30,7 +30,7 @@ if ($query) {
 else {
 	$ip = json_decode(@file_get_contents('https://www.iplocate.io/api/lookup/'.$_SERVER['REMOTE_ADDR']), true);
 	$country = isset($ip['country']) ? $ip['country'] : 'United Kingdom';
-	$api = "http://ws.audioscrobbler.com/2.0/?method=geo.getTopArtists&api_key=$key_lastfm &format=json&limit=24&page=".mt_rand(1, 24).'&country='.urlencode($country);
+	$api = "http://ws.audioscrobbler.com/2.0/?method=geo.getTopArtists&api_key=$key_lastfm&format=json&limit=24&page=".mt_rand(1, 24).'&country='.urlencode($country);
 	$featured = "			<h3 data-country=\"$country\">Top Artists</h3>\n";
 	$json = json_decode(@file_get_contents($api), true);
 	foreach ($json['topartists']['artist'] as $item) $artists[] = '			<a href="?q='.urlencode($item['name']).'">'.$item['name']."</a>\n";
