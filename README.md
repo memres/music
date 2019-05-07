@@ -1,2 +1,2 @@
 # music
-Listen to random music with or without playlists.
+Listen to limitless & randomized music.
