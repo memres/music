@@ -374,7 +374,7 @@ function titlize($val) {
 					$('.seek').css('width', percent + '%');
 				});
 				$(document).on('click', '.fa-question-circle', function() {
-					$('h5 span').slideToggle();
+					$('h5 span').slideToggle(200);
 					$(this).toggleClass('far fas');
 				});
 				$(document).on('click', '.fa-bars', function() {
@@ -436,7 +436,7 @@ function titlize($val) {
 							}
 						}
 						if (event.which == 72) {
-							$('h5 span').slideToggle();
+							$('h5 span').slideToggle(200);
 							$('.fa-question-circle').toggleClass('far fas');
 						}
 					}
