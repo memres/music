@@ -341,6 +341,20 @@ function titlize($val) {
 		<script>
 			$(function(){
 				$('ul').slideUp();
+				if (/Mobi|Android/i.test(navigator.userAgent)) {
+					$('h5').html('<b>Shake</b> your device for next track.');
+					var script = document.createElement('script');
+					script.src = 'https://cdn.jsdelivr.net/npm/shake.js@1.2.2/shake.min.js';
+					document.body.appendChild(script);
+					script.onload = function() {
+						var shakeEvent = new Shake({threshold: 17});
+						shakeEvent.start();
+						window.addEventListener('shake', function() {
+							next();
+						}, false);
+					}
+				}
+				const h5 = $('h5').html();
 				var audio = $('audio')[0], track = 0, trax = [0];
 				play(track);
 				$(document).on('click', 'li', function() {
@@ -360,7 +374,7 @@ function titlize($val) {
 					$('.seek').css('width', percent + '%');
 				});
 				$(document).on('click', '.fa-question-circle', function() {
-					$('h5 span').fadeToggle();
+					$('h5 span').slideToggle();
 					$(this).toggleClass('far fas');
 				});
 				$(document).on('click', '.fa-bars', function() {
@@ -422,7 +436,7 @@ function titlize($val) {
 							}
 						}
 						if (event.which == 72) {
-							$('h5 span').fadeToggle();
+							$('h5 span').slideToggle();
 							$('.fa-question-circle').toggleClass('far fas');
 						}
 					}
@@ -437,20 +451,6 @@ function titlize($val) {
 						}
 					}
 				});
-				if (/Mobi|Android/i.test(navigator.userAgent)) {
-					$('h5').html('<b>Shake</b> your device for next track.');
-					var script = document.createElement('script');
-					script.src = 'https://cdn.jsdelivr.net/npm/shake.js@1.2.2/shake.min.js';
-					document.body.appendChild(script);
-					script.onload = function() {
-						var shakeEvent = new Shake({threshold: 17});
-						shakeEvent.start();
-						window.addEventListener('shake', function() {
-							next();
-						}, false);
-					}
-				}
-				const h5 = $('h5').html();
 				$('audio').on('error', function() {
 					if ($('audio[src*="get.php"]').length) {
 						$('audio').attr('src', 'https://invidio.us/latest_version?local=true&itag=140&id=' + $('li.active').attr('id'));
