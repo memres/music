@@ -32,7 +32,7 @@ else {
 	$featured .= implode($artists)."			<h3>Featured Tags</h3>\n";
 	foreach (array('Alternative', 'Ambient', 'Audio', 'Audiobook', 'Chillout', 'Classical', 'Concert', 'Country', 'Electronic', 'Full Album', 'Funk', 'Hip-Hop', 'Deep House', 'Indie', 'Instrumental', 'Jazz', 'Lyrics', 'Metal', 'New Wave', 'Official', 'Podcast', 'Pop', 'Psychedelic', 'Punk', 'Rock', 'Sleep', 'Soundtrack', 'Study', 'Trance', 'Video') as $val) $tags[] = '			<a href="?q='.urlencode($val).'">'.$val."</a>\n";
 	shuffle($tags);
-	$featured .= implode($tags)."\n		</main>";
+	$featured .= implode($tags)."		</main>\n";
 }
 function titlize($val) {
 	return trim(str_ireplace(array('official', 'music', 'video', 'lyrics', 'lyric', 'live', 'audio only', 'audio', '[audio only]', 'vevo presents', 'vevo', 'şarkı sözleri', '()', '( )', '(  )', '(   )', '[]', '[ ]', '[  ]', '[   ]'), '', $val));
