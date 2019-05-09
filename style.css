@@ -20,7 +20,7 @@
 				width: 90%;
 				margin: 20px 0;
 				padding: 20px;
-				cursor: default;
+				user-select: none;
 				border-radius: 20px;
 				box-shadow: 2px 2px 10px #246756;
 				background-image: radial-gradient(farthest-side at bottom left, rgba(255, 0, 255, 0.5), #246756), radial-gradient(farthest-corner at bottom right, rgba(255, 50, 50, 0.5), #246756 400px);
@@ -196,7 +196,6 @@
 				font-size: 15px;
 				line-height: 20px;
 				letter-spacing: 1px;
-				user-select: none;
 			}
 			.current {
 				text-align: left;
