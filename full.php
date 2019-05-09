@@ -40,7 +40,7 @@ else {
 	*/
 	foreach (array('Alternative', 'Ambient', 'Audio', 'Audiobook', 'Chillout', 'Classical', 'Concert', 'Country', 'Electronic', 'Full Album', 'Funk', 'Hip-Hop', 'Deep House', 'Indie', 'Instrumental', 'Jazz', 'Lyrics', 'Metal', 'New Wave', 'Official', 'Podcast', 'Pop', 'Psychedelic', 'Punk', 'Rock', 'Sleep', 'Soundtrack', 'Study', 'Trance', 'Video') as $val) $tags[] = '			<a href="?q='.urlencode($val).'">'.$val."</a>\n";
 	shuffle($tags);
-	$featured .= implode($tags)."\n		</main>";
+	$featured .= implode($tags)."		</main>\n";
 }
 function titlize($val) {
 	return trim(str_ireplace(array('official', 'music', 'video', 'lyrics', 'lyric', 'live', 'audio only', 'audio', '[audio only]', 'vevo presents', 'vevo', 'şarkı sözleri', '()', '( )', '(  )', '(   )', '[]', '[ ]', '[  ]', '[   ]'), '', $val));
@@ -79,7 +79,7 @@ function titlize($val) {
 				width: 90%;
 				margin: 20px 0;
 				padding: 20px;
-				cursor: default;
+				user-select: none;
 				border-radius: 20px;
 				box-shadow: 2px 2px 10px #246756;
 				background-image: radial-gradient(farthest-side at bottom left, rgba(255, 0, 255, 0.5), #246756), radial-gradient(farthest-corner at bottom right, rgba(255, 50, 50, 0.5), #246756 400px);
@@ -255,7 +255,6 @@ function titlize($val) {
 				font-size: 15px;
 				line-height: 20px;
 				letter-spacing: 1px;
-				user-select: none;
 			}
 			.current {
 				text-align: left;
