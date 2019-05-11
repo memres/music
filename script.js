@@ -111,8 +111,27 @@
 					}
 				});
 				$('audio').on('error', function() {
-					if ($('audio[src*="get.php"]').length) {
-						$('audio').attr('src', 'https://invidio.us/latest_version?local=true&itag=140&id=' + $('li.active').attr('id'));
+					var request = '/latest_version?local=true&itag=251&id=' + $('li.active').attr('id');
+					if ($('audio[src*="wxzm.sx"]').length) {
+						$('audio').attr('src', 'https://invidious.enkirton.net' + request);
+						audio.pause();
+						audio.load();
+						audio.oncanplaythrough = audio.play();
+					}
+					else if ($('audio[src*="enkirton.net"]').length) {
+						$('audio').attr('src', 'https://tube.poal.co' + request);
+						audio.pause();
+						audio.load();
+						audio.oncanplaythrough = audio.play();
+					}
+					else if ($('audio[src*="poal.co"]').length) {
+						$('audio').attr('src', 'https://invidiou.sh' + request);
+						audio.pause();
+						audio.load();
+						audio.oncanplaythrough = audio.play();
+					}
+					else if ($('audio[src*="invidiou.sh"]').length) {
+						$('audio').attr('src', 'https://invidious.snopyta.org' + request);
 						audio.pause();
 						audio.load();
 						audio.oncanplaythrough = audio.play();
@@ -181,7 +200,7 @@
 							$('body').css('background-image', 'url(' + hq + ')');
 						}
 					});
-					$('audio').attr('src', 'get.php?v=' + id);
+					$('audio').attr('src', 'https://vid.wxzm.sx/latest_version?local=true&itag=251&id=' + id);
 					audio.pause();
 					audio.load();
 					audio.oncanplaythrough = audio.play();
