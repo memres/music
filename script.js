@@ -41,7 +41,7 @@ $(function() {
 		}
 		else {
 			$(this).addClass('on');
-			$('h5').html('<b>Playlist</b>');
+			$('h5').html('<b>Queue</b>');
 			$('ul').slideDown();
 		}
 	});
@@ -61,10 +61,10 @@ $(function() {
 			else audio.play();
 		}
 		if (event.which == 13) next();
-		if (event.which == 66) prev();
-		if (event.which == 82) $('.shuffle').toggleClass('on');
+		if (event.which == 80) prev();
+		if (event.which == 83) $('.shuffle').toggleClass('on');
 		if (event.which == 76) $('.loop').toggleClass('on');
-		if (event.which == 80) {
+		if (event.which == 81) {
 			if ($('.queue').hasClass('on')) {
 				$('.queue').removeClass('on');
 				$('h5').html(h5);
@@ -72,7 +72,7 @@ $(function() {
 			}
 			else {
 				$('.queue').addClass('on');
-				$('h5').html('<b>Playlist</b>');
+				$('h5').html('<b>Queue</b>');
 				$('ul').slideDown();
 			}
 		}
