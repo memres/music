@@ -1,7 +1,7 @@
 ::selection {
 	color: #9c27b0;
 }
-* {
+*, *:before, *:after {
 	box-sizing: border-box;
 }
 body {
@@ -64,7 +64,7 @@ button[type="submit"] {
 	border-top-right-radius: 20px;
 	border-bottom-right-radius: 20px;
 }
-form:after, nav:after, aside:after {
+form:after, nav:after {
 	content: '';
 	display: table;
 	clear: both;
@@ -80,12 +80,15 @@ h3, h4, h5 {
 }
 h3 {
 	font-size: 24px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 h4 {
 	font-size: 18px;
 }
 h4:first-child {
-	margin-top: 14px;
+	margin-top: 15px;
 }
 h5 {
 	font-size: 12px;
@@ -133,6 +136,10 @@ a {
 	text-decoration: none;
 	text-shadow: 2px 2px 4px #201c29;
 	background-image: linear-gradient(to right, #ff8a00, #da1b60);
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+	hyphens: auto;
 }
 a:active, button:active, nav i:active {
 	background-image: linear-gradient(to right, #da1b60, #ff8a00);
@@ -142,7 +149,7 @@ ul {
 	margin: 0;
 	padding: 0;
 	overflow: auto;
-	max-height: 200px;
+	max-height: calc(100vh - 368.33px);
 }
 li {
 	display: block;
@@ -153,10 +160,9 @@ li {
 	color: #201c29;
 	background-color: #f1f1f1;
 	cursor: pointer;
-	overflow-wrap: break-word;
-	word-wrap: break-word;
-	word-break: break-word;
-	hyphens: auto;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 li:nth-child(even) {
 	background-color: #c1c1c1;
@@ -193,23 +199,26 @@ aside {
 aside i {
 	font-size: 36px !important;
 }
-aside span, time {
-	float: left;
-	width: 20%;
+aside span {
+	display: inline-block;
+	width: calc(32% - 18px);
 }
 time {
+	width: 20%;
 	margin-top: -10px;
 	font-size: 18px;
 	line-height: 1;
 	letter-spacing: 1px;
 }
 .current {
+	float: left;
 	text-align: left;
 }
 .total {
+	float: right;
 	text-align: right;
 }
-@media(min-width: 1600px) {
+@media(min-width: 1920px) {
 	main {
 		width: 80%;
 	}
@@ -219,7 +228,7 @@ time {
 	h5, h5 i {
 		font-size: 16px !important;
 	}
-	button, nav i, aside i {
+	button, nav i {
 		font-size: 48px !important;
 	}
 	h4, input, time {
@@ -232,13 +241,10 @@ time {
 		padding: 15px;
 	}
 	a, li {
-		font-size: 20px;
-		line-height: 30px;
+		font-size: 24px;
+		line-height: 34px;
 	}
 	ul {
-		max-height: 400px;
-	}
-	figure, .buffer, .seek {
-		height: 50px;
-	}
+		max-height: calc(100vh - 421.67px);
+	}	
 }
