@@ -25,6 +25,6 @@ $(function() {
 		$(location).attr('href', $(this).attr('value'));
 	});
 	$('form').on('submit', function() {
-		$(this).css('pointer-events', 'none').find('i').css('animation', 'rotation 2s infinite linear');
+		$('button[type="submit"]').css('pointer-events', 'none').find('i').css('animation', 'rotation 2s infinite linear');
 	});
 });
