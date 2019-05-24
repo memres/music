@@ -1,3 +1,6 @@
+::selection {
+	background-color: #246756;
+}
 *, *:before, *:after {
 	box-sizing: border-box;
 }
@@ -8,6 +11,7 @@ body {
 	align-items: center;
 	justify-content: center;
 	background-size: cover;
+	background-attachment: fixed;
 	background-position: center center;
 }
 body, input {
