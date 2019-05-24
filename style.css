@@ -1,5 +1,5 @@
 ::selection {
-	background-color: #246756;
+	background: linear-gradient(to right, #ff8a00, #da1b60);
 }
 *, *:before, *:after {
 	box-sizing: border-box;
@@ -11,6 +11,7 @@ body {
 	align-items: center;
 	justify-content: center;
 	background-size: cover;
+	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center center;
 }
@@ -180,7 +181,7 @@ ul {
 ul li {
 	display: block;
 	padding: 0 5px;
-	font-size: 20px;
+	font-size: 16px;
 	line-height: 40px;
 	color: #201c29;
 	background-color: #f1f1f1;
@@ -195,10 +196,6 @@ ul li.active {
 }
 .ui-menu {
 	max-height: none !important;
-}
-.ui-menu-item {
-	font-size: 20px;
-	line-height: 40px;
 }
 .ui-state-active {
 	border: 1px solid !important;
