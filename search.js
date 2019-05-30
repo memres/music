@@ -1,10 +1,11 @@
-var callback, rotate = 'rotation 2s infinite linear';
+var callback;
 $(function() {
 	$('input[type="search"]').autocomplete({
 		appendTo: 'article',
 		autoFocus: true,
 		source: function(request, response) {
-			$.getJSON('https://suggestqueries.google.com/complete/search?callback=?', {
+			$.getJSON('https://www.google.com/complete/search?callback=?', {
+				'hl': 'en',
 				'ds': 'yt',
 				'client': 'youtube',
 				'jsonp': 'callback',
@@ -22,11 +23,12 @@ $(function() {
 			};
 		},
 		select: function(event, ui) {
-			$('button[type="submit"] i').css('animation', rotate);
-			location.href = '?q=' + encodeURI(ui.item.value).replace(/%20/g, '+');
+			rotate();
+			location.href = '?q=' + encodeURIComponent(ui.item.value).replace(/%20/g, '+');
 		}
 	});
-	$('form').on('submit', function() {
-		$('button[type="submit"] i').css('animation', rotate);
-	});
+	$('form').on('submit', rotate);
+	function rotate() {
+		$('button[type="submit"] i').css('animation', 'rotation 2s infinite linear');
+	}
 });
