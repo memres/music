@@ -14,11 +14,8 @@ $(function() {
 	const h5 = $('h5').html();
 	var audio = $('audio')[0], track = 0, trax = [0], timeout;
 	play(track);
-	$(window).resize(function() {
-		$('h3').height() > 30 ? $('h3').addClass('on ellipsis') : $('h3').removeClass('on ellipsis');
-	});
-	$(document).on('click', 'h3.on', function() {
-		$(this).toggleClass('ellipsis');
+	$(document).on('click', '.elli', function() {
+		$(this).toggleClass('psis');
 	});
 	$(document).on('click', '.help', function() {
 		var help = $(this).text();
@@ -65,15 +62,16 @@ $(function() {
 			audio.currentTime = (audio.duration / 100) * ui.value;
 		}
 	});
-	$('input, .ui-slider-handle').off('keydown');
-	$('input, .ui-slider-handle').off('keyup');
-	$(window).on('keydown', function(event) {
+	$('.ui-slider-handle').off('keydown');
+	$(document).on('keydown', function(event) {
+		if ($(event.target).is('INPUT')) return;
 		if (event.which == 37) audio.currentTime = audio.currentTime - 3;
 		if (event.which == 39) audio.currentTime = audio.currentTime + 3;
 		if (event.which == 38) if (audio.volume < 1) audio.volume = (Math.round(audio.volume * 100) / 100) + 0.05;
 		if (event.which == 40) if (audio.volume > 0) audio.volume = (Math.round(audio.volume * 100) / 100) - 0.05;
 	});
-	$(window).on('keyup', function(event) {
+	$(document).on('keyup', function(event) {
+		if ($(event.target).is('INPUT')) return;
 		if (event.which == 32) audio.paused ? audio.play() : audio.pause();
 		if (event.which == 13) next();
 		if (event.which == 80) prev();
@@ -168,9 +166,9 @@ $(function() {
 		title = li.text(),
 		hd = 'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg',
 		hq = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
-		$('h3.on').removeClass('on ellipsis');
+		$('h3.elli').removeClass('elli psis');
 		$('h3').text(title);
-		if ($('h3').height() > 30) $('h3').addClass('on ellipsis');
+		if ($('h3').height() > 40) $('h3').addClass('elli psis');
 		$(document).attr('title', title);
 		$('.playlist li.on').removeClass('on');
 		li.addClass('ok on');
