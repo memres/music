@@ -1,2 +1,2 @@
 # music
-Listen to ad-free limitless music.
+Listen to ad-free hit music of the world
