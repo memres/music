@@ -17,7 +17,7 @@ $(function() {
 	timeout;
 	play(track);
 	$('select').on('change', function() {
-		Cookies.set($(this).attr('name'), this.value, { expires: 365, path: folder });
+		Cookies.set($(this).attr('name'), this.value, {expires: 365, path: folder});
 		location.reload();
 	});
 	$('.prev').on('click', prev);
@@ -32,7 +32,7 @@ $(function() {
 		$(this).toggleClass('on');
 	});
 	$('.shuffle').on('click', function() {
-		$(this).hasClass('on') ? Cookies.set('shuffle', 1, { expires: 365, path: folder }) : Cookies.remove('shuffle', { path: folder });
+		$(this).hasClass('on') ? Cookies.set('shuffle', 1, {expires: 365, path: folder}) : Cookies.remove('shuffle', {path: folder});
 	});
 	$('.queue').on('click', function() {
 		let h1 = $('li.on').text();
@@ -43,7 +43,7 @@ $(function() {
 		}
 		else {
 			$(this).addClass('on');
-			$('h1').text('Queue');
+			$('h1').text('QUEUE');
 			$('ul').slideDown();
 			$('.elli').addClass('psis');
 		}
@@ -66,14 +66,14 @@ $(function() {
 		}
 	});
 	$('.ui-slider-handle').off('keydown');
-	$(document).on('keydown', function(event) {
+	$(window).on('keydown', function(event) {
 		if ($(event.target).is('INPUT')) return;
 		if (event.which == 37) audio.currentTime = audio.currentTime - 3;
 		if (event.which == 39) audio.currentTime = audio.currentTime + 3;
-		if (event.which == 38) if (audio.volume < 1) audio.volume = (Math.round(audio.volume * 100) / 100) + 0.05;
-		if (event.which == 40) if (audio.volume > 0) audio.volume = (Math.round(audio.volume * 100) / 100) - 0.05;
+		if (event.which == 38 && audio.volume < 1) audio.volume = (Math.round(audio.volume * 100) / 100) + 0.05;
+		if (event.which == 40 && audio.volume > 0) audio.volume = (Math.round(audio.volume * 100) / 100) - 0.05;
 	});
-	$(document).on('keyup', function(event) {
+	$(window).on('keyup', function(event) {
 		if ($(event.target).is('INPUT')) return;
 		if (event.which == 32) audio.paused ? audio.play() : audio.pause();
 		if (event.which == 13) next();
@@ -81,7 +81,7 @@ $(function() {
 		if (event.which == 76) $('.loop').toggleClass('on');
 		if (event.which == 83) {
 			$('.shuffle').toggleClass('on');
-			$('.shuffle').hasClass('on') ? Cookies.set('shuffle', 1, { expires: 365, path: folder }) : Cookies.remove('shuffle', { path: folder });
+			$('.shuffle').hasClass('on') ? Cookies.set('shuffle', 1, {expires: 365, path: folder}) : Cookies.remove('shuffle', {path: folder});
 		}
 		if (event.which == 81) {
 			let h1 = $('li.on').text();
