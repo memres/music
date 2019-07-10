@@ -1,2 +1,2 @@
 # music
-Listen to ad-free hit music of the world
+Listen to hit music of the world.
