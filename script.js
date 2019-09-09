@@ -1,11 +1,11 @@
 $(function() {
-	if ((typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1)) {
+	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 		$('h1').html('Shake your device for next track.');
 		var script = document.createElement('script');
 		script.src = 'https://cdn.jsdelivr.net/npm/shake.js@1.2.2/shake.min.js';
 		document.head.appendChild(script);
 		script.onload = function() {
-			var shakeEvent = new Shake({threshold: 19});
+			var shakeEvent = new Shake({threshold: 23});
 			shakeEvent.start();
 			window.addEventListener('shake', next, false);
 		}
@@ -114,7 +114,7 @@ $(function() {
 			audio.play();
 		}
 		else if ($('audio[src*="fi.invidious"]').length) {
-			audio.src = 'https://invidio.us/latest_version?local=true&itag=251&id=' + id;
+			audio.src = 'https://invidious.13ad.de/latest_version?local=true&itag=251&id=' + id;
 			audio.pause();
 			audio.load();
 			audio.play();
