@@ -107,14 +107,14 @@ $(function() {
 	});
 	$('audio').on('error', function() {
 		var id = $('li.on').attr('id');
-		if ($('audio[src*="wxzm.sx"]').length) {
-			audio.src = 'https://invidious.13ad.de/latest_version?local=true&itag=140&id=' + id;
+		if ($('audio[src*="snopyta"]').length) {
+			audio.src = 'https://vid.wxzm.sx/latest_version?local=true&itag=251&id=' + id;
 			audio.pause();
 			audio.load();
 			audio.play();
 		}
-		else if ($('audio[src*="13ad.de"]').length) {
-			audio.src = 'https://de.invidious.snopyta.org/latest_version?local=true&itag=251&id=' + id;
+		else if ($('audio[src*="wxzm"]').length) {
+			audio.src = 'https://invidious.enkirton.net/latest_version?local=true&itag=251&id=' + id;
 			audio.pause();
 			audio.load();
 			audio.play();
@@ -187,7 +187,7 @@ $(function() {
 			}
 		});
 		//
-		audio.src = 'https://vid.wxzm.sx/latest_version?local=true&itag=251&id=' + id;
+		audio.src = 'https://de.invidious.snopyta.org/latest_version?local=true&itag=251&id=' + id;
 		audio.pause();
 		audio.load();
 		audio.play();
