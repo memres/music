@@ -187,7 +187,7 @@ $(function() {
 			}
 		});
 		//
-		audio.src = 'https://de.invidious.snopyta.org/latest_version?local=true&itag=251&id=' + id;
+		audio.src = 'https://invidious.snopyta.org/latest_version?local=true&itag=251&id=' + id;
 		audio.pause();
 		audio.load();
 		audio.play();
