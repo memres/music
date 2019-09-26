@@ -122,7 +122,7 @@ $(function() {
 		else {
 			$('li.on').remove();
 			if ($('.shuffle').hasClass('on')) track = randomize();
-			if (track == $('li:last-child').index()) track = 0;
+			else if (track == $('li:last-child').index()) track = 0;
 			play(track);
 		}
 	});
