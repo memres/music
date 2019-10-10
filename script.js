@@ -10,6 +10,9 @@ $(function() {
 			window.addEventListener('shake', next, false);
 		}
 	}
+	$('[name="chart"]').val(Cookies.get('chart'));
+	$('[name="country"]').val(Cookies.get('country'));
+	if (Cookies.get('shuffle')) $('.shuffle').addClass('on');
 	var folder = window.location.pathname.split('/').slice(0, -1).join('/'),
 	audio = $('audio')[0],
 	track = Cookies.get('shuffle') ? randomize() : 0,
@@ -108,13 +111,13 @@ $(function() {
 	$('audio').on('error', function() {
 		var id = $('li.on').attr('id');
 		if ($('audio[src*="snopyta"]').length) {
-			audio.src = 'https://vid.wxzm.sx/latest_version?local=true&itag=251&id=' + id;
+			audio.src = 'https://invidious.drycat.fr/latest_version?local=true&itag=251&id=' + id;
 			audio.pause();
 			audio.load();
 			audio.play();
 		}
-		else if ($('audio[src*="wxzm"]').length) {
-			audio.src = 'https://invidious.enkirton.net/latest_version?local=true&itag=251&id=' + id;
+		else if ($('audio[src*="drycat"]').length) {
+			audio.src = 'https://invidio.us/latest_version?local=true&itag=251&id=' + id;
 			audio.pause();
 			audio.load();
 			audio.play();
@@ -187,7 +190,7 @@ $(function() {
 			}
 		});
 		//
-		audio.src = 'https://invidious.snopyta.org/latest_version?local=true&itag=251&id=' + id;
+		audio.src = 'https://proxy.invidious.snopyta.org/latest_version?local=true&itag=251&id=' + id;
 		audio.pause();
 		audio.load();
 		audio.play();
