@@ -110,13 +110,7 @@ $(function() {
 	});
 	$('audio').on('error', function() {
 		var id = $('li.on').attr('id');
-		if ($('audio[src*="snopyta"]').length) {
-			audio.src = 'https://invidious.drycat.fr/latest_version?local=true&itag=251&id=' + id;
-			audio.pause();
-			audio.load();
-			audio.play();
-		}
-		else if ($('audio[src*="drycat"]').length) {
+		if ($('audio[src*="drycat"]').length) {
 			audio.src = 'https://invidio.us/latest_version?local=true&itag=251&id=' + id;
 			audio.pause();
 			audio.load();
@@ -190,7 +184,7 @@ $(function() {
 			}
 		});
 		//
-		audio.src = 'https://proxy.invidious.snopyta.org/latest_version?local=true&itag=251&id=' + id;
+		audio.src = 'https://invidious.drycat.fr/latest_version?local=true&itag=251&id=' + id;
 		audio.pause();
 		audio.load();
 		audio.play();
