@@ -135,6 +135,9 @@ li.on {
 	font-weight: 700;
 	background: radial-gradient(ellipse at center, #ff8a00 0%, #da1b60 100%);
 }
+li span:active {
+	cursor: move;
+}
 .elli {
 	cursor: zoom-out;
 }
@@ -161,28 +164,28 @@ figcaption {
 	background: linear-gradient(to right, #ff8a00, #da1b60);
 }
 aside {
+	position: relative;
 	margin-top: 10px;
 	text-shadow: 2px 2px 4px #201c29;
 }
 aside i {
+	margin: 0 calc(10% - 20px);
 	padding: 10px;
-}
-aside i:nth-of-type(2) {
-	margin: 0 calc(16% - 20px);
 }
 aside .on {
 	color: #ff8a00;
 }
 time {
+	position: absolute;
 	font-size: 12px;
 	line-height: 1;
 	letter-spacing: 1px;
 }
 .current {
-	float: left;
+	left: 0;
 }
 .total {
-	float: right;
+	right: 0;
 }
 @media(min-width: 640px) {
 	header, nav i {
@@ -212,8 +215,8 @@ time {
 	figure, .buffer, .progress {
 		height: 30px;
 	}
-	aside i:nth-of-type(2) {
-		margin: 0 calc(16% - 30px);
+	aside i {
+		margin: 0 calc(10% - 30px);
 	}
 }
 @media(min-width: 1280px) {
@@ -244,7 +247,7 @@ time {
 	figure, .buffer, .progress {
 		height: 40px;
 	}
-	aside i:nth-of-type(2) {
-		margin: 0 calc(16% - 40px);
+	aside i {
+		margin: 0 calc(10% - 40px);
 	}
 }
