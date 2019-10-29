@@ -1,14 +1,14 @@
 $(function() {
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-		$('h1').html('Shake your device for next track.');
+		$('h1').text('Shake your device for next track.');
 		var script = document.createElement('script');
-		script.src = 'https://cdn.jsdelivr.net/npm/shake.js@1.2.2/shake.min.js';
-		document.head.appendChild(script);
 		script.onload = function() {
 			var shakeEvent = new Shake({threshold: 30});
 			shakeEvent.start();
 			window.addEventListener('shake', next, false);
 		}
+		script.src = 'https://cdn.jsdelivr.net/npm/shake.js@1.2.2/shake.min.js';
+		document.head.appendChild(script);
 	}
 	$('[name="chart"]').val(Cookies.get('chart'));
 	$('[name="country"]').val(Cookies.get('country'));
@@ -86,7 +86,7 @@ $(function() {
 	});
 	$('audio').on('error', function() {
 		if ($('audio[src*="invidio.us"]').length) {
-			audio.src = 'https://invidiou.sh/latest_version?itag=' + itag + '&id=' + $('li.on').attr('id');
+			audio.src = 'https://watch.nettohikari.com/latest_version?local=true&itag=' + itag + '&id=' + $('li.on').attr('id');
 			audio.pause();
 			audio.load();
 			audio.play();
