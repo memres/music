@@ -85,8 +85,8 @@ $(function() {
 		else next();
 	});
 	$('audio').on('error', function() {
-		if ($('audio[src*="yewtu.be"]').length) {
-			audio.src = 'https://invidio.us/latest_version?local=true&itag=' + itag + '&id=' + $('li.on').attr('id');
+		if ($('audio[src*="invidio.us"]').length) {
+			audio.src = 'https://invidious.snopyta.org/latest_version?local=true&itag=' + itag + '&id=' + $('li.on').attr('id');
 			audio.pause();
 			audio.load();
 			audio.play();
@@ -123,7 +123,7 @@ $(function() {
 			}
 		});
 		//
-		audio.src = 'https://yewtu.be/latest_version?local=true&itag=' + itag + '&id=' + id;
+		audio.src = 'https://invidio.us/latest_version?local=true&itag=' + itag + '&id=' + id;
 		audio.pause();
 		audio.load();
 		audio.play();
