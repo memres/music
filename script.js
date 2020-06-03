@@ -86,7 +86,7 @@ $(function() {
 	});
 	$('audio').on('error', function() {
 		if ($('audio[src*="invidio.us"]').length) {
-			audio.src = 'https://invidious.snopyta.org/latest_version?local=true&itag=' + itag + '&id=' + $('li.on').attr('id');
+			audio.src = 'https://yewtu.be/latest_version?local=true&itag=' + itag + '&id=' + $('li.on').attr('id');
 			audio.pause();
 			audio.load();
 			audio.play();
@@ -171,7 +171,7 @@ $(function() {
 		$('.shuffle').hasClass('on') ? Cookies.set('shuffle', 1, {expires: 365, path: folder}) : Cookies.remove('shuffle', {path: folder});
 	}
 	function download() {
-		window.location.href = 'https://alltube.drycat.fr/download?audio=on&url=http%3A%2F%2Fyoutu.be%2F' + $('li.on').attr('id');
+		window.open('https://yewtu.be/latest_version?download_widget=' + encodeURI('{"id":"' + $('li.on').attr('id') + '","title":"' + $('h1').text() + '.webm' + '","itag":"251"}'), '_blank');
 	}
 	function queue() {
 		let h1 = $('li.on').text();
