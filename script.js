@@ -171,7 +171,7 @@ $(function() {
 		$('.shuffle').hasClass('on') ? Cookies.set('shuffle', 1, {expires: 365, path: folder}) : Cookies.remove('shuffle', {path: folder});
 	}
 	function download() {
-		window.open('https://yewtu.be/latest_version?download_widget=' + encodeURI('{"id":"' + $('li.on').attr('id') + '","title":"' + $('h1').text() + '.webm' + '","itag":"251"}'), '_blank');
+		window.open('https://invidious.ggc-project.de/latest_version?download_widget=' + encodeURI('{"id":"' + $('li.on').attr('id') + '","title":"' + $('h1').text() + '.m4a' + '","itag":"140"}'), '_blank');
 	}
 	function queue() {
 		let h1 = $('li.on').text();
@@ -188,7 +188,7 @@ $(function() {
 		}
 	}
 	$('ul').sortable({
-		handle: 'span',
+		handle: 'img',
 		update: function() {
 			if (Cookies.get('shuffle')) shuffle();
 			track = $('li.on').index();
