@@ -38,10 +38,6 @@ select[name="country"] {
 select[name="chart"] {
 	right: 30px;
 }
-i {
-	font-size: 20px !important;
-	cursor: pointer;
-}
 header {
 	z-index: 2;
 	display: none;
@@ -70,6 +66,10 @@ main {
 	border-radius: 20px;
 	box-shadow: 0 0 10px 10px rgba(36, 103, 86, .5);
 	background: radial-gradient(ellipse at center, rgba(255, 0, 255, .5), #246756);
+}
+nav i, aside i {
+	font-size: 20px !important;
+	cursor: pointer;
 }
 nav i {
 	float: left;
@@ -112,8 +112,10 @@ ul {
 	max-height: calc(100vh - 220px);
 }
 li {
-	display: block;
-	padding: 0 5px;
+	float: left;
+	text-align: left;
+	width: 100%;
+	padding-right: 5px;
 	font-size: 12px;
 	line-height: 40px;
 	color: #201c29;
@@ -135,8 +137,11 @@ li.on {
 	font-weight: 700;
 	background: radial-gradient(ellipse at center, #ff8a00 0%, #da1b60 100%);
 }
-li span:active {
+li img {
+	float: left;
 	cursor: move;
+	height: 40px;
+	margin-right: 5px;
 }
 .elli {
 	cursor: zoom-out;
@@ -191,7 +196,7 @@ time {
 	header, nav i {
 		padding: 15px;
 	}
-	header, i {
+	header, nav i, aside i {
 		font-size: 30px !important;
 	}
 	header span {
@@ -205,6 +210,9 @@ time {
 	}
 	li {
 		font-size: 14px;
+	}
+	li i {
+		font-size: 16px !important;
 	}
 	ul {
 		max-height: calc(100vh - 265px);
@@ -223,7 +231,7 @@ time {
 	header, nav i {
 		padding: 20px;
 	}
-	header, i {
+	header, nav i, aside i {
 		font-size: 40px !important;
 	}
 	header span {
@@ -237,6 +245,9 @@ time {
 	}
 	li {
 		font-size: 16px;
+	}
+	li i {
+		font-size: 18px !important;
 	}
 	ul {
 		max-height: calc(100vh - 310px);
