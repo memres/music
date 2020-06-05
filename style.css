@@ -54,6 +54,9 @@ header {
 	box-shadow: 0 0 10px 10px rgba(36, 103, 86, .5);
 	pointer-events: none;
 }
+header i {
+	font-size: 20px !important;
+}
 header span {
 	margin-left: 4px;
 	vertical-align: 3px;
@@ -193,10 +196,13 @@ time {
 	right: 0;
 }
 @media(min-width: 640px) {
-	header, nav i {
+	header {
+		padding: 10px 15px;
+	}
+	nav i {
 		padding: 15px;
 	}
-	header, nav i, aside i {
+	header, header i, nav i, aside i {
 		font-size: 30px !important;
 	}
 	header span {
@@ -228,10 +234,13 @@ time {
 	}
 }
 @media(min-width: 1280px) {
-	header, nav i {
+	header {
+		padding: 15px 20px;
+	}
+	nav i {
 		padding: 20px;
 	}
-	header, nav i, aside i {
+	header, header i, nav i, aside i {
 		font-size: 40px !important;
 	}
 	header span {
