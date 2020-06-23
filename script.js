@@ -10,8 +10,7 @@ $(function() {
 		script.src = 'https://cdn.jsdelivr.net/npm/shake.js@1.2.2/shake.min.js';
 		document.head.appendChild(script);
 	}
-	$('[name="chart"]').val(Cookies.get('chart'));
-	$('[name="country"]').val(Cookies.get('country'));
+	$('[name="selection"]').val(Cookies.get('selection'));
 	if (Cookies.get('shuffle')) $('.shuffle').addClass('on');
 	var folder = window.location.pathname.split('/').slice(0, -1).join('/'),
 	itag = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? 140 : 251,
@@ -84,7 +83,7 @@ $(function() {
 	});
 	$('audio').on('error', function() {
 		if ($('audio[src*="invidio.us"]').length) {
-			audio.src = 'https://yewtu.be/latest_version?local=true&itag=' + itag + '&id=' + $('li.on').attr('id');
+			audio.src = 'https://invidious.13ad.de/latest_version?local=true&itag=' + itag + '&id=' + $('li.on').attr('id');
 			audio.pause();
 			audio.load();
 			audio.play();
