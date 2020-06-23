@@ -216,9 +216,13 @@ time {
 	}
 	li {
 		font-size: 14px;
+		padding-right: 10px;
 	}
 	li i {
 		font-size: 16px !important;
+	}
+	li img {
+		margin-right: 10px;
 	}
 	ul {
 		max-height: calc(100vh - 265px);
