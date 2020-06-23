@@ -1,2 +1,2 @@
 # music
-Listen to region-specific hit songs of the world.
+Listen to hit music of the world, tuned for genres and countries.
