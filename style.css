@@ -22,6 +22,7 @@ body, input {
 select {
 	position: fixed;
 	top: 30px;
+	left: 30px;
 	outline: 0;
 	border: 0;
 	margin: 0;
@@ -31,12 +32,6 @@ select {
 	color: #fff;
 	background-color: rgba(36, 103, 86, .75);
 	box-shadow: 0 0 5px 5px rgba(36, 103, 86, .75);
-}
-select[name="country"] {
-	left: 30px;
-}
-select[name="chart"] {
-	right: 30px;
 }
 header {
 	z-index: 2;
