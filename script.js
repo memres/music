@@ -19,14 +19,12 @@ $(function() {
 	track = Cookies.get('shuffle') ? randomize() : 0,
 	trax = [track],
 	timeout;
-	if (itag == 140) $('.download').remove();
 	play(track);
 	$('.play').on('click', playpause);
 	$('.next').on('click', next);
 	$('.prev').on('click', prev);
 	$('.queue').on('click', queue);
 	$('.shuffle').on('click', shuffle);
-	$('.download').on('click', download);
 	$('select').on('change', function() {
 		Cookies.set($(this).attr('name'), this.value, {expires: 365, path: folder});
 		location.reload();
@@ -170,9 +168,6 @@ $(function() {
 		$('.shuffle').toggleClass('on');
 		$('.shuffle').hasClass('on') ? Cookies.set('shuffle', 1, {expires: 365, path: folder}) : Cookies.remove('shuffle', {path: folder});
 	}
-	function download() {
-		window.open('https://invidious.ggc-project.de/latest_version?download_widget=' + encodeURI('{"id":"' + $('li.on').attr('id') + '","title":"' + $('h1').text() + '.m4a' + '","itag":"140"}'), '_blank');
-	}
 	function queue() {
 		let h1 = $('li.on').text();
 		if ($('.queue').hasClass('on')) {
@@ -217,6 +212,5 @@ $(function() {
 		if (event.which == 76) $('.loop').toggleClass('on');
 		if (event.which == 83) shuffle();
 		if (event.which == 81) queue();
-		if (event.which == 68 && itag == 251) download();
 	});
 });
