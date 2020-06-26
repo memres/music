@@ -24,7 +24,7 @@ $(function() {
 	$('.prev').on('click', prev);
 	$('.queue').on('click', queue);
 	$('.shuffle').on('click', shuffle);
-	$('.open').on('click', open);
+	$('.launch').on('click', launch);
 	if ('mediaSession' in navigator) {
 		navigator.mediaSession.setActionHandler('previoustrack', prev);
 		navigator.mediaSession.setActionHandler('nexttrack', next);
@@ -225,8 +225,8 @@ $(function() {
 	$(window).on('keydown', function(event) {
 		if (event.which == 37) audio.currentTime = audio.currentTime - 3;
 		if (event.which == 39) audio.currentTime = audio.currentTime + 3;
-		if (event.which == 38 || event.which == 107 && audio.volume < 1) audio.volume = (Math.round(audio.volume * 100) / 100) + 0.05;
-		if (event.which == 40 || event.which == 109 && audio.volume > 0) audio.volume = (Math.round(audio.volume * 100) / 100) - 0.05;
+		if (event.which == 38 && audio.volume < 1) audio.volume = (Math.round(audio.volume * 100) / 100) + 0.05;
+		if (event.which == 40 && audio.volume > 0) audio.volume = (Math.round(audio.volume * 100) / 100) - 0.05;
 	});
 	$(window).on('keyup', function(event) {
 		if (event.which == 32) playpause();
