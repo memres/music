@@ -24,6 +24,11 @@ $(function() {
 	$('.prev').on('click', prev);
 	$('.queue').on('click', queue);
 	$('.shuffle').on('click', shuffle);
+	$('.open').on('click', open);
+	if ('mediaSession' in navigator) {
+		navigator.mediaSession.setActionHandler('previoustrack', prev);
+		navigator.mediaSession.setActionHandler('nexttrack', next);
+	}
 	$('select').on('change', function() {
 		Cookies.set($(this).attr('name'), this.value, {expires: 365, path: folder});
 		location.reload();
@@ -54,8 +59,6 @@ $(function() {
 	});
 	$('audio').on('loadedmetadata', function() {
 		$('.total').text(calc(audio.duration));
-		if ($('ul').is(':visible')) $('ul').animate({scrollTop: $('li.on').position().top - $('li').first().position().top});
-		else $('ul').slideDown().animate({scrollTop: $('li.on').position().top - $('li').first().position().top}).slideUp();
 	});
 	$('audio').on('progress', function() {
 		if (audio.duration > 0) {
@@ -82,8 +85,8 @@ $(function() {
 		else next();
 	});
 	$('audio').on('error', function() {
-		if ($('audio[src*="invidio.us"]').length) {
-			audio.src = 'https://invidious.13ad.de/latest_version?local=true&itag=' + itag + '&id=' + $('li.on').attr('id');
+		if ($('audio[src*="ggc-project.de"]').length) {
+			audio.src = 'https://invidio.us/latest_version?local=true&itag=' + itag + '&id=' + $('li.on').attr('id');
 			audio.pause();
 			audio.load();
 			audio.play();
@@ -97,17 +100,34 @@ $(function() {
 	});
 	function play(n) {
 		var li = $('li:eq(' + n + ')'),
-		title = li.text(),
-		id = li.attr('id'),
-		ytimg = 'https://i.ytimg.com/vi/' + id;
-		//
-		$('h1.elli').removeClass('elli psis');
-		$('h1').text(title);
-		if ($('h1').height() > 39) $('h1').addClass('elli psis');
-		$(document).attr('title', title);
+		ytitle = li.text(),
+		ytid = li.attr('id'),
+		ytimg = 'https://i.ytimg.com/vi/' + ytid;
 		//
 		$('li.on').removeClass('on');
 		li.addClass('ok on');
+		//
+		$('h1.elli').removeClass('elli psis');
+		$('h1').text(ytitle);
+		if ($('h1').height() > 39) $('h1').addClass('elli psis');
+		$(document).attr('title', ytitle);
+		//
+		$('time').text('');
+		$('figcaption').css('width', '0');
+		//
+		if ('mediaSession' in navigator) {
+			navigator.mediaSession.metadata = new MediaMetadata({
+				title: ytitle,
+				artwork: [{
+					src: ytimg + '/mqdefault.jpg',
+					sizes: '320x180',
+					type: 'image/jpg'
+				}]
+			});
+		}
+		//
+		if ($('ul').is(':visible')) $('ul').animate({scrollTop: li.position().top - $('li').first().position().top});
+		else $('ul').slideDown().animate({scrollTop: li.position().top - $('li').first().position().top}).slideUp();
 		//
 		$.ajax({
 			url: 'https://images' + ~~(Math.random() * 33) + '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=' + encodeURIComponent(ytimg + '/maxresdefault.jpg'),
@@ -120,7 +140,7 @@ $(function() {
 			}
 		});
 		//
-		audio.src = 'https://invidio.us/latest_version?local=true&itag=' + itag + '&id=' + id;
+		audio.src = 'https://invidious.ggc-project.de/latest_version?local=true&itag=' + itag + '&id=' + ytid;
 		audio.pause();
 		audio.load();
 		audio.play();
@@ -167,6 +187,10 @@ $(function() {
 		$('.shuffle').toggleClass('on');
 		$('.shuffle').hasClass('on') ? Cookies.set('shuffle', 1, {expires: 365, path: folder}) : Cookies.remove('shuffle', {path: folder});
 	}
+	function launch() {
+		if (!audio.paused) audio.pause();
+		window.open('https://www.youtube.com/watch?v=' + $('li.on').attr('id') + '&t=' + ~~(audio.currentTime), '_blank');	
+	}
 	function queue() {
 		let h1 = $('li.on').text();
 		if ($('.queue').hasClass('on')) {
@@ -201,15 +225,26 @@ $(function() {
 	$(window).on('keydown', function(event) {
 		if (event.which == 37) audio.currentTime = audio.currentTime - 3;
 		if (event.which == 39) audio.currentTime = audio.currentTime + 3;
-		if (event.which == 38 && audio.volume < 1) audio.volume = (Math.round(audio.volume * 100) / 100) + 0.05;
-		if (event.which == 40 && audio.volume > 0) audio.volume = (Math.round(audio.volume * 100) / 100) - 0.05;
+		if (event.which == 38 || event.which == 107 && audio.volume < 1) audio.volume = (Math.round(audio.volume * 100) / 100) + 0.05;
+		if (event.which == 40 || event.which == 109 && audio.volume > 0) audio.volume = (Math.round(audio.volume * 100) / 100) - 0.05;
 	});
 	$(window).on('keyup', function(event) {
 		if (event.which == 32) playpause();
-		if (event.which == 13) next();
+		if (event.which == 13 || event.which == 78) next();
 		if (event.which == 80) prev();
 		if (event.which == 76) $('.loop').toggleClass('on');
 		if (event.which == 83) shuffle();
 		if (event.which == 81) queue();
+		if (event.which == 79) launch();
+		if (event.which == 48 || event.which == 96) audio.currentTime = 0;
+		if (event.which == 49 || event.which == 97) audio.currentTime = .1 * audio.duration;
+		if (event.which == 50 || event.which == 98) audio.currentTime = .2 * audio.duration;
+		if (event.which == 51 || event.which == 99) audio.currentTime = .3 * audio.duration;
+		if (event.which == 52 || event.which == 100) audio.currentTime = .4 * audio.duration;
+		if (event.which == 53 || event.which == 101) audio.currentTime = .5 * audio.duration;
+		if (event.which == 54 || event.which == 102) audio.currentTime = .6 * audio.duration;
+		if (event.which == 55 || event.which == 103) audio.currentTime = .7 * audio.duration;
+		if (event.which == 56 || event.which == 104) audio.currentTime = .8 * audio.duration;
+		if (event.which == 57 || event.which == 105) audio.currentTime = .9 * audio.duration;
 	});
 });
