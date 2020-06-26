@@ -100,6 +100,7 @@ h1 {
 	font-size: 16px;
 	line-height: 1.25;
 	text-shadow: 2px 2px 4px #201c29;
+	user-select: text;
 }
 ul {
 	display: none;
@@ -174,9 +175,10 @@ aside {
 aside i {
 	margin: 0 calc(10% - 20px);
 	padding: 10px;
+	border-radius: 50%;
 }
-aside .on {
-	color: #ff8a00;
+aside .on, .launch:active {
+	background: radial-gradient(ellipse at center, #ff8a00 0%, #da1b60 100%);
 }
 time {
 	position: absolute;
