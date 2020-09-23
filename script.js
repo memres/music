@@ -85,8 +85,8 @@ $(function() {
 		else next();
 	});
 	$('audio').on('error', function() {
-		if ($('audio[src*="invidious.fdn.fr"]').length) {
-			audio.src = 'https://invidious.site/latest_version?local=true&itag=' + itag + '&id=' + $('li.on').attr('id');
+		if ($('audio[src*="' + $(this).attr('data-source') + '"]').length) {
+			audio.src = 'https://' + $(this).attr('data-source-alt') + '/latest_version?local=true&itag=' + itag + '&id=' + $('li.on').attr('id');
 			audio.pause();
 			audio.load();
 			audio.play();
@@ -140,7 +140,7 @@ $(function() {
 			}
 		});
 		//
-		audio.src = 'https://invidious.fdn.fr/latest_version?local=true&itag=' + itag + '&id=' + ytid;
+		audio.src = 'https://invidious.site/latest_version?local=true&itag=' + itag + '&id=' + ytid;
 		audio.pause();
 		audio.load();
 		audio.play();
