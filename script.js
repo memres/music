@@ -189,7 +189,7 @@ $(function() {
 		if ($('ul').is(':visible')) $('ul').animate({scrollTop: li.position().top - $('li').first().position().top});
 		else $('ul').slideDown().animate({scrollTop: li.position().top - $('li').first().position().top}).slideUp();
 		//
-		$.get('?v=' + id, function(e) {
+		$.get('api.php?v=' + id, function(e) {
 			$('audio').html(e);
 			audio.load();
 			audio.play();
