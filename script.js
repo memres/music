@@ -43,7 +43,6 @@ $(function() {
 	});
 	$('audio').on('loadedmetadata', function() {
 		$('.total').text(calc(audio.duration));
-		audio.play();
 	});
 	$('audio').on('progress', function() {
 		if (audio.duration > 0) {
@@ -69,7 +68,6 @@ $(function() {
 		if ($('.loop').hasClass('on')) audio.play();
 		else next();
 	});
-	$('source:last-child').on('error', next);
 	$('ul').sortable({
 		handle: 'img',
 		update: function() {
@@ -125,7 +123,7 @@ $(function() {
 	function next() {
 		if ($('li').not('.ok').length) {
 			if ($('.shuffle').hasClass('on')) track = randomize();
-			else if (track == $('li:last-child').index()) track = 0;
+			else if (track == $('li').last().index()) track = $('li').not('.ok').first().index();
 			else track++;
 			play(track);
 			trax.push(track);
@@ -161,28 +159,16 @@ $(function() {
 		}
 	}
 	function randomize() {
-		if ($('li').not('.ok').length) {
-			var num = ~~(Math.random() * $('li').length);
-			if ($('li:eq(' + num + ')').hasClass('ok')) return randomize();
-			else return num;
-		}
+		var num = ~~(Math.random() * $('li').length);
+		if ($('li').eq(num).hasClass('ok')) return randomize();
+		else return num;
 	}
 	function calc(d, c) {
 		var h = ~~(d / 3600), m = ~~(d % 3600 / 60), s = ~~(c ? d % 60 : d % 3600 % 60);
 		return (h ? h + ':' : '') + (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
 	}
-	function fys(a) {
-		var m = a.length, t, i;
-		while (m) {
-			i = Math.floor(Math.random() * m--);
-			t = a[m];
-			a[m] = a[i];
-			a[i] = t;
-		}
-		return a;
-	}
 	function play(n) {
-		var li = $('li:eq(' + n + ')'),
+		var li = $('li').eq(n),
 		title = li.text(),
 		id = li.attr('id'),
 		img = 'https://i.ytimg.com/vi/' + id;
@@ -203,22 +189,11 @@ $(function() {
 		if ($('ul').is(':visible')) $('ul').animate({scrollTop: li.position().top - $('li').first().position().top});
 		else $('ul').slideDown().animate({scrollTop: li.position().top - $('li').first().position().top}).slideUp();
 		//
-		$.ajax({
-			url: 'https://images' + ~~(Math.random() * 33) + '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=' + encodeURIComponent(img + '/maxresdefault.jpg'),
-			type: 'HEAD',
-			success: function() {
-				$('div').css('background-image', 'url(' + img + '/maxresdefault.jpg)');
-			},
-			error: function() {
-				$('div').css('background-image', 'url(' + img + '/hqdefault.jpg)');
-			}
+		$.get('?v=' + id, function(e) {
+			$('audio').html(e);
+			audio.load();
+			audio.play();
 		});
-		//
-		$('audio').empty();
-		$.each(fys(JSON.parse(Cookies.get('source'))), function(i, e) {
-			$('audio').append('<source src="https://' + e + '/latest_version?local=true&itag=140&id=' + id + '" type="audio/mp4"/><source src="https://' + e + '/latest_version?local=true&itag=251&id=' + id + '" type="audio/webm"/>');
-		});
-		audio.load();
 		//
 		if ('mediaSession' in navigator) {
 			navigator.mediaSession.metadata = new MediaMetadata({
@@ -235,5 +210,16 @@ $(function() {
 			navigator.mediaSession.setActionHandler('seekforward', forward);
 			navigator.mediaSession.setActionHandler('seekbackward', backward);
 		}
+		//
+		$.ajax({
+			url: 'https://images' + ~~(Math.random() * 33) + '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=' + encodeURIComponent(img + '/maxresdefault.jpg'),
+			type: 'HEAD',
+			success: function() {
+				$('div').css('background-image', 'url(' + img + '/maxresdefault.jpg)');
+			},
+			error: function() {
+				$('div').css('background-image', 'url(' + img + '/hqdefault.jpg)');
+			}
+		});
 	}
 });
