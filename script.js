@@ -36,7 +36,7 @@ $(function() {
 	});
 	$('audio').on('volumechange', function() {
 		clearTimeout(timeout);
-		$('header').stop(true, true).show().html('<i class="material-icons">' + (audio.volume == 0 || audio.muted ? 'volume_off' : (audio.volume <= 0.5 ? 'volume_down' : 'volume_up')) + '</i> ' + (audio.muted ? '0' : Math.round(audio.volume * 100)));
+		$('header').stop(true, true).show().html('<i class="material-icons">'+(audio.volume == 0 || audio.muted ? 'volume_off' : (audio.volume <= 0.5 ? 'volume_down' : 'volume_up'))+'</i> '+(audio.muted ? '0' : Math.round(audio.volume * 100)));
 		timeout = setTimeout(function() {
 			$('header').fadeOut();
 		}, 1000);
@@ -46,9 +46,9 @@ $(function() {
 	});
 	$('audio').on('progress', function() {
 		if (audio.duration > 0) {
-			for (var i = 0; i < audio.buffered.length; i++) {
+			for (let i = 0; i < audio.buffered.length; i++) {
 				if (audio.buffered.start(audio.buffered.length - 1 - i) < audio.currentTime) {
-					$('.buffer').css('width', (audio.buffered.end(audio.buffered.length - 1 - i) / audio.duration) * 100 + '%');
+					$('.buffer').css('width', (audio.buffered.end(audio.buffered.length - 1 - i) / audio.duration) * 100+'%');
 					break;
 				}
 			}
@@ -56,7 +56,7 @@ $(function() {
 	});
 	$('audio').on('timeupdate', function() {
 		$('.current').text(calc(audio.currentTime, true));
-		$('.progress').css('width', ((audio.currentTime / audio.duration) * 100) + '%');
+		$('.progress').css('width', ((audio.currentTime / audio.duration) * 100)+'%');
 	});
 	$('audio').on('play', function() {
 		$('.play').text('pause');
@@ -88,8 +88,8 @@ $(function() {
 	$(window).on('keydown', function(e) {
 		if (e.which == 37) backward();
 		if (e.which == 39) forward();
-		if (e.which == 38 && audio.volume < 1) audio.volume = (Math.round(audio.volume * 100) / 100) + 0.05;
-		if (e.which == 40 && audio.volume > 0) audio.volume = (Math.round(audio.volume * 100) / 100) - 0.05;
+		if (e.which == 38 && audio.volume < 1) audio.volume = (Math.round(audio.volume * 100) + 5) / 100;
+		if (e.which == 40 && audio.volume > 0) audio.volume = (Math.round(audio.volume * 100) - 5) / 100;
 	});
 	$(window).on('keyup', function(e) {
 		if (e.which == 32) playpause();
@@ -142,7 +142,7 @@ $(function() {
 	}
 	function launch() {
 		if (!audio.paused) audio.pause();
-		window.open('https://www.youtube.com/watch?v=' + $('li.on').attr('id') + '&t=' + ~~(audio.currentTime), '_blank');	
+		window.open('https://www.youtube.com/watch?v='+$('li.on').attr('id')+'&t='+~~(audio.currentTime), '_blank');	
 	}
 	function queue() {
 		let h1 = $('li.on').text();
@@ -159,40 +159,47 @@ $(function() {
 		}
 	}
 	function randomize() {
-		var num = ~~(Math.random() * $('li').length);
+		let num = ~~(Math.random() * $('li').length);
 		if ($('li').eq(num).hasClass('ok')) return randomize();
 		else return num;
 	}
 	function calc(d, c) {
-		var h = ~~(d / 3600), m = ~~(d % 3600 / 60), s = ~~(c ? d % 60 : d % 3600 % 60);
-		return (h ? h + ':' : '') + (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+		let s = ~~(c ? d % 60 : d % 3600 % 60);
+		return ~~(d % 3600 / 60)+':'+(s < 10 ? '0'+s : s);
 	}
 	function play(n) {
-		var li = $('li').eq(n),
-		title = li.text(),
+		let li = $('li').eq(n),
+		tt = li.text(),
 		id = li.attr('id'),
-		img = 'https://i.ytimg.com/vi/' + id;
+		im = 'https://i.ytimg.com/vi/'+id,
+		hd = im+'/maxresdefault.jpg',
+		hq = im+'/hqdefault.jpg';
 		//
 		if ($('li').length == $('li.ok').length) $('li').removeClass('ok');
 		$('li.on').removeClass('on');
 		li.addClass('ok on');
 		//
 		$('h1.elli').removeClass('elli psis');
-		$('h1').text(title);
+		$('h1').text(tt);
 		if ($('h1').height() > 39) $('h1').addClass('elli psis');
-		$(document).attr('title', title);
+		$(document).attr('title', tt);
 		//
-		$('time').text('');
+		$('time').text('0:00');
 		$('figcaption').css('width', '0');
 		$('.total').text(li.children('img').attr('alt'));
 		//
 		if ($('ul').is(':visible')) $('ul').animate({scrollTop: li.position().top - $('li').first().position().top});
 		else $('ul').slideDown().animate({scrollTop: li.position().top - $('li').first().position().top}).slideUp();
 		//
-		$.get('api.php?v=' + id, function(e) {
-			$('audio').html(e);
-			audio.load();
-			audio.play();
+		audio.pause();
+		audio.currentTime = 0;
+		$.get('api.php?v='+id, function(e) {
+			if (e) {
+				$('audio').html(e);
+				audio.load();
+				audio.play();
+			}
+			else next();
 		});
 		//
 		if ('mediaSession' in navigator) {
@@ -200,7 +207,7 @@ $(function() {
 				title: li.children('bdo').text(),
 				artist: li.children('bdi').text(),
 				artwork: [{
-					src: img + '/mqdefault.jpg',
+					src: im+'/mqdefault.jpg',
 					sizes: '320x180',
 					type: 'image/jpg'
 				}]
@@ -212,13 +219,17 @@ $(function() {
 		}
 		//
 		$.ajax({
-			url: 'https://images' + ~~(Math.random() * 33) + '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=' + encodeURIComponent(img + '/maxresdefault.jpg'),
+			url: 'https://images'+~~(Math.random() * 33)+'-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url='+encodeURIComponent(hd),
 			type: 'HEAD',
 			success: function() {
-				$('div').css('background-image', 'url(' + img + '/maxresdefault.jpg)');
+				$('div img').attr('src', hd).on('load', function() {
+					$(this).parent().css('background-image', 'url('+hd+')');
+				});
 			},
 			error: function() {
-				$('div').css('background-image', 'url(' + img + '/hqdefault.jpg)');
+				$('div img').attr('src', hq).on('load', function() {
+					$(this).parent().css('background-image', 'url('+hq+')');
+				});
 			}
 		});
 	}
