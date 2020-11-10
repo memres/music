@@ -1,5 +1,5 @@
 $(function() {
-	$('[name="selection"]').val(Cookies.get('selection'));
+	$('[name="playlist"]').val(Cookies.get('playlist'));
 	if (Cookies.get('shuffle')) $('.shuffle').addClass('on');
 	var folder = window.location.pathname.split('/').slice(0, -1).join('/'),
 	audio = $('audio')[0],
@@ -86,6 +86,7 @@ $(function() {
 	});
 	$('.ui-slider-handle').off('keydown');
 	$(window).on('keydown', function(e) {
+		if (e.which == 32) return false;
 		if (e.which == 37) backward();
 		if (e.which == 39) forward();
 		if (e.which == 38 && audio.volume < 1) audio.volume = (Math.round(audio.volume * 100) + 5) / 100;
