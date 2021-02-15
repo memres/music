@@ -143,7 +143,7 @@ $(function() {
 	}
 	function launch() {
 		if (!audio.paused) audio.pause();
-		window.open('https://www.youtube.com/watch?v='+$('li.on').attr('id')+'&t='+~~(audio.currentTime), '_blank');	
+		window.open('https://music.youtube.com/watch?v='+$('li.on').attr('id')+'&t='+~~(audio.currentTime), '_blank');	
 	}
 	function queue() {
 		let h1 = $('li.on').text();
