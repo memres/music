@@ -1,5 +1,5 @@
 <?php
-if (isset($_SERVER['HTTP_REFERER']) && parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) == $_SERVER['SERVER_NAME'] && !empty($_GET['v'])) {
+if (!empty($_GET['v'])) {
 	$ch = curl_init('https://dev.ytapi.com/w/'.$_GET['v']);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
