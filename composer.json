@@ -1,10 +1,1 @@
-{
-	"require": {
-		"php": "^7.4.*",
-		"ext-dom": "*"
-    },
-	"require-dev": {
-		"ivopetkov/docs-generator": "^0.2.*",
-		"phpunit/phpunit": "^6.* || ^7.* || ^8.* || ^9.*"
-	}
-}
+{}
