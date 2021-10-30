@@ -194,14 +194,9 @@ $(function() {
 		//
 		audio.pause();
 		audio.currentTime = 0;
-		$.get('api.php?v='+id, function(e) {
-			if (e) {
-				$('audio').html(e);
-				audio.load();
-				audio.play();
-			}
-			else next();
-		});
+		$('audio').html('<source src="https://invidious.snopyta.org/latest_version?local=true&itag=251&id='+id+'" type="audio/webm"/>');
+		audio.load();
+		audio.play();
 		//
 		if ('mediaSession' in navigator) {
 			navigator.mediaSession.metadata = new MediaMetadata({
