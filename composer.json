@@ -1,5 +1,5 @@
 {
-	"name": "Music",
+	"name": "memres/music",
 	"description": "Listen to hit music of the world.",
 	"license": "MIT",
 	"require": {
