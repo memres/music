@@ -143,7 +143,7 @@ $(function() {
 	}
 	function launch() {
 		if (!audio.paused) audio.pause();
-		window.open('https://invidious.snopyta.org/latest_version?local=true&itag=251&id='+$('li.on').attr('id')+'&t='+~~(audio.currentTime), '_blank');	
+		window.open('https://invidious.snopyta.org/latest_version?local=true&itag=251&id='+$('li.on').attr('id'), '_blank');	
 	}
 	function queue() {
 		let h1 = $('li.on').text();
