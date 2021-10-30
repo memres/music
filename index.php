@@ -1,4 +1,5 @@
 <?php
+if (isset($_COOKIE['heroku']) || $_POST['password'] == 'mesvideo') { if (!isset($_COOKIE['heroku'])) setcookie('heroku', true);
 $title = 'Music';
 $motto = 'Listen to hit music of the world.';
 $playlist = !empty($_COOKIE['playlist']) ? $_COOKIE['playlist'] : country();
@@ -435,3 +436,5 @@ function country() {
 <?php } ?>
 	</body>
 </html>
+
+<?php } else echo '<form method="post"><input type="password" name="password"/></form>'; ?>
