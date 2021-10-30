@@ -143,7 +143,7 @@ $(function() {
 	}
 	function launch() {
 		if (!audio.paused) audio.pause();
-		window.open('https://music.youtube.com/watch?v='+$('li.on').attr('id')+'&t='+~~(audio.currentTime), '_blank');	
+		window.open('https://invidious.snopyta.org/latest_version?local=true&itag=251&id='+$('li.on').attr('id')+'&t='+~~(audio.currentTime), '_blank');	
 	}
 	function queue() {
 		let h1 = $('li.on').text();
@@ -194,9 +194,14 @@ $(function() {
 		//
 		audio.pause();
 		audio.currentTime = 0;
-		$('audio').html('<source src="https://invidious.snopyta.org/latest_version?local=true&itag=251&id='+id+'" type="audio/webm"/>');
-		audio.load();
-		audio.play();
+		$.get('api.php?v='+id, function(e) {
+			if (e) {
+				$('audio').html(e);
+				audio.load();
+				audio.play();
+			}
+			else next();
+		});
 		//
 		if ('mediaSession' in navigator) {
 			navigator.mediaSession.metadata = new MediaMetadata({
