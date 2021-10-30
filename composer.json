@@ -1,10 +1,1 @@
-{
-	"name": "memres/music",
-	"description": "Listen to hit music of the world.",
-	"license": "MIT",
-	"require": {
-		"php" : ">=7.4",
-		"ext-curl": "*",
-		"ext-dom": "*"
-	}
-}
+{}
