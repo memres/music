@@ -1,5 +1,5 @@
 <?php
-if (isset($_COOKIE['heroku']) || $_POST['password'] == 'mesvideo') { if (!isset($_COOKIE['heroku'])) setcookie('heroku', true);
+if (isset($_COOKIE['heroku']) || $_POST['password'] == 'mesmusic') { if (!isset($_COOKIE['heroku'])) setcookie('heroku', true);
 $title = 'Music';
 $motto = 'Listen to hit music of the world.';
 $playlist = !empty($_COOKIE['playlist']) ? $_COOKIE['playlist'] : country();
