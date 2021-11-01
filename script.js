@@ -194,7 +194,7 @@ $(function() {
 		//
 		audio.pause();
 		audio.currentTime = 0;
-		$.get('https://mes:endavour@mes.rf.gd/music/api.php?v='+id, function(e) {
+		$.get('http://mes:endavour@mes.rf.gd/music/api.php?v='+id, function(e) {
 			if (e) {
 				$('audio').html(e);
 				audio.load();
