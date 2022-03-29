@@ -6,7 +6,7 @@ $(function() {
 	track = Cookies.get('shuffle') ? randomize() : 0,
 	trax = [track],
 	timeout;
-	play(track);
+	//play(track);
 	$('.play').on('click', playpause);
 	$('.next').on('click', next);
 	$('.prev').on('click', prev);
@@ -143,7 +143,7 @@ $(function() {
 	}
 	function launch() {
 		if (!audio.paused) audio.pause();
-		window.open('https://invidious.snopyta.org/latest_version?local=true&itag=251&id='+$('li.on').attr('id'), '_blank');	
+		window.open('https://music.youtube.com/watch?v='+$('li.on').attr('id')+'&t='+~~(audio.currentTime), '_blank');	
 	}
 	function queue() {
 		let h1 = $('li.on').text();
