@@ -1,5 +1,5 @@
 <?php
-if (!empty($_GET['v'])) {
+if (isset($_SERVER['HTTP_REFERER']) && parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) == $_SERVER['SERVER_NAME'] && !empty($_GET['v'])) {
 	$ch = curl_init('https://dev.ytapi.com/w/'.$_GET['v']);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -7,7 +7,7 @@ if (!empty($_GET['v'])) {
 	$htm = curl_exec($ch);
 	curl_close($ch);
 	$dom = @DOMDocument::loadHTML($htm);
-	if ($dom->getElementsByTagName('a')->item(5)) echo '<source src="'.scheme($dom->getElementsByTagName('a')->item(5)->attributes->getNamedItem('href')->value).'" type="audio/mp4"/><source src="'.scheme($dom->getElementsByTagName('a')->item(4)->attributes->getNamedItem('href')->value).'" type="audio/webm"/>';
+	if ($dom->getElementsByTagName('a')->item(7)) echo '<source src="'.scheme($dom->getElementsByTagName('a')->item(7)->attributes->getNamedItem('href')->value).'" type="audio/webm"/><source src="'.scheme($dom->getElementsByTagName('a')->item(8)->attributes->getNamedItem('href')->value).'" type="audio/mp4"/>';
 	else echo '<source src="https://invidious.snopyta.org/latest_version?local=true&itag=251&id='.$_GET['v'].'" type="audio/webm"/>';
 }
 function scheme($s) {
