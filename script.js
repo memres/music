@@ -6,7 +6,7 @@ $(function() {
 	track = Cookies.get('shuffle') ? randomize() : 0,
 	trax = [track],
 	timeout;
-	//play(track);
+	play(track);
 	$('.play').on('click', playpause);
 	$('.next').on('click', next);
 	$('.prev').on('click', prev);
@@ -176,9 +176,8 @@ $(function() {
 		hd = im+'/maxresdefault.jpg',
 		hq = im+'/hqdefault.jpg';
 		//
-		if ($('li').length == $('li.ok').length) $('li').removeClass('ok');
 		$('li.on').removeClass('on');
-		li.addClass('ok on');
+		li.addClass('on');
 		//
 		$('h1.elli').removeClass('elli psis');
 		$('h1').text(tt);
@@ -197,8 +196,11 @@ $(function() {
 		$.get('api.php?v='+id, function(e) {
 			if (e) {
 				$('audio').html(e);
-				audio.load();
-				audio.play();
+				if ($('li.ok').length && $('li').length != $('li.ok').length) {
+					audio.load();
+					audio.play();
+				}
+				li.addClass('ok');
 			}
 			else next();
 		});
@@ -213,6 +215,8 @@ $(function() {
 					type: 'image/jpg'
 				}]
 			});
+			navigator.mediaSession.setActionHandler('play', playpause);
+			navigator.mediaSession.setActionHandler('pause', playpause);
 			navigator.mediaSession.setActionHandler('nexttrack', next);
 			navigator.mediaSession.setActionHandler('previoustrack', prev);
 			navigator.mediaSession.setActionHandler('seekforward', forward);
