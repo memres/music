@@ -114,9 +114,9 @@ function country() {
 		<div><img/></div>
 		<header></header>
 		<select name="playlist">
-			<optgroup label="————————————————"></optgroup>
+			<optgroup label="—————————"></optgroup>
 			<optgroup label="🗺 Countries"></optgroup>
-			<optgroup label="————————————————"></optgroup>
+			<optgroup label="—————————"></optgroup>
 			<option value="PL4fGSI1pDJn6puJdseH2Rt9sMvt9E2M4i">Worldwide</option>
 			<option value="PL4fGSI1pDJn4Kd7YEG9LbUqvt64PLs9Fo">Argentina</option>
 			<option value="PL4fGSI1pDJn7xvYy-bP6UFeG5tITQgScd">Australia</option>
@@ -175,9 +175,9 @@ function country() {
 			<option value="PL4fGSI1pDJn6O1LS0XSdF3RyO0Rq_LDeI">United States</option>
 			<option value="PL4fGSI1pDJn5caN5mlO8NWCPSyuHkQANg">Uruguay</option>
 			<option value="PL4fGSI1pDJn7JsFoxkKlW3Zoi_snioCcs">Zimbabwe</option>
-			<optgroup label="————————————————"></optgroup>
+			<optgroup label="—————————"></optgroup>
 			<optgroup label="♫ Individual"></optgroup>
-			<optgroup label="————————————————"></optgroup>
+			<optgroup label="—————————"></optgroup>
 			<option value="PL0KrRV0rbVN-21saESr1SBcKls4kZy09W">Global</option>
 			<option value="PL0KrRV0rbVN-Rnulv8HWqd2v-IWQ7gMUs">Hebrew</option>
 			<option value="PL0KrRV0rbVN_xUARb6NIifWlMcLsJSmDo">Turkish</option>
