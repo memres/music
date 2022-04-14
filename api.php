@@ -8,7 +8,6 @@ if (isset($_SERVER['HTTP_REFERER']) && parse_url($_SERVER['HTTP_REFERER'], PHP_U
 	curl_close($ch);
 	$dom = @DOMDocument::loadHTML($htm);
 	if ($dom->getElementsByTagName('a')->item(7)) echo '<source src="'.scheme($dom->getElementsByTagName('a')->item(7)->attributes->getNamedItem('href')->value).'" type="audio/webm"/><source src="'.scheme($dom->getElementsByTagName('a')->item(8)->attributes->getNamedItem('href')->value).'" type="audio/mp4"/>';
-	else echo '<source src="https://invidious.snopyta.org/latest_version?local=true&itag=251&id='.$_GET['v'].'" type="audio/webm"/>';
 }
 function scheme($s) {
 	return 'https:'.str_replace('https:', '', $s);
