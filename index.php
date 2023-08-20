@@ -1,7 +1,7 @@
 <?php
 $title = 'Music';
-$motto = 'Listen to hit music of the world.';
-$playlist = !empty($_COOKIE['playlist']) ? $_COOKIE['playlist'] : country();
+$motto = 'Listen to music of the world.';
+$playlist = !empty($_COOKIE['playlist']) ? $_COOKIE['playlist'] : 'PL0KrRV0rbVN_2obINsiQO7xAa8x1vA1TS';
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://music.youtube.com/youtubei/v1/browse?alt=json&key=AIzaSyC9XL3ZjWddXya6X74dJoCTL-WEYFDNX30');
 curl_setopt($ch, CURLOPT_POSTFIELDS, '{"context":{"client":{"clientName":"WEB_REMIX","clientVersion":"0.1","hl":"en","gl":"US","experimentIds":[],"experimentsToken":"","browserName":"Chrome","browserVersion":"86.0.4240.75","osName":"Windows","osVersion":"10.0","utcOffsetMinutes":180,"locationInfo":{"locationPermissionAuthorizationStatus":"LOCATION_PERMISSION_AUTHORIZATION_STATUS_UNSUPPORTED"},"musicAppInfo":{"musicActivityMasterSwitch":"MUSIC_ACTIVITY_MASTER_SWITCH_INDETERMINATE","musicLocationMasterSwitch":"MUSIC_LOCATION_MASTER_SWITCH_INDETERMINATE","pwaInstallabilityStatus":"PWA_INSTALLABILITY_STATUS_UNKNOWN"}},"capabilities":{},"request":{"internalExperimentFlags":[{"key":"force_route_music_library_subscriptions_to_outertube","value":"true"},{"key":"force_music_enable_outertube_home_browse","value":"true"},{"key":"force_route_music_library_track_artists_to_outertube","value":"true"},{"key":"force_music_enable_outertube_tastebuilder_browse","value":"true"},{"key":"force_music_enable_outertube_playlist_detail_browse","value":"true"},{"key":"force_route_music_library_playlists_to_outertube","value":"true"},{"key":"force_music_enable_outertube_music_queue","value":"true"},{"key":"force_route_music_library_songs_to_outertube","value":"true"},{"key":"force_route_music_library_albums_to_outertube","value":"true"},{"key":"force_music_enable_outertube_album_detail_browse","value":"true"},{"key":"force_music_enable_outertube_search_suggestions","value":"true"}],"sessionIndex":{}},"clickTracking":{"clickTrackingParams":null},"activePlayers":{},"user":{"enableSafetyMode":false}},"browseId":"VL'.$playlist.'","browseEndpointContextSupportedConfigs":{"browseEndpointContextMusicConfig":{"pageType":"MUSIC_PAGE_TYPE_PLAYLIST"}}}');
@@ -23,70 +23,6 @@ foreach ($json['contents']['singleColumnBrowseResultsRenderer']['tabs'][0]['tabR
 		if (stripos($track, $a) !== false) $track = str_ireplace($a, '', $track);
 	}
 	$queue[] = '<li id="'.$id.'"><img src="https://i.ytimg.com/vi/'.$id.'/default.jpg" alt="'.$duration.'"/><bdi>'.$artist.'</bdi> - <bdo>'.trim(trim(trim(str_ireplace(['Official Music Video', 'Official Video', ' ()', ' []'], '', $track)), '-')).'</bdo></li>';
-}
-function country() {
-	$gl = isset($_SERVER['HTTP_CF_IPCOUNTRY']) ? $_SERVER['HTTP_CF_IPCOUNTRY'] : 'WW';
-	if (!in_array($gl, ['WW', 'AR', 'AU', 'AT', 'BE', 'BO', 'BR', 'CA', 'CL', 'CO', 'CR', 'CZ', 'DK', 'DO', 'EC', 'SV', 'EE', 'FI', 'FR', 'DE', 'GT', 'HN', 'HU', 'IS', 'IE', 'IL', 'IT', 'JP', 'KE', 'LU', 'MX', 'NL', 'NZ', 'NI', 'NG', 'NO', 'PA', 'PY', 'PE', 'PL', 'PT', 'RO', 'RU', 'RS', 'ZA', 'KR', 'ES', 'SE', 'CH', 'TZ', 'TR', 'UG', 'UA', 'GB', 'US', 'UY', 'ZW'])) $gl = 'WW';
-	if ($gl == 'WW') $pl = 'PL4fGSI1pDJn6puJdseH2Rt9sMvt9E2M4i';
-	if ($gl == 'AR') $pl = 'PL4fGSI1pDJn4Kd7YEG9LbUqvt64PLs9Fo';
-	if ($gl == 'AU') $pl = 'PL4fGSI1pDJn7xvYy-bP6UFeG5tITQgScd';
-	if ($gl == 'AT') $pl = 'PL4fGSI1pDJn6fFTVP30alDfSDAkEtHaNr';
-	if ($gl == 'BE') $pl = 'PL4fGSI1pDJn64Up8Ds5BXizLBFZ922jHj';
-	if ($gl == 'BO') $pl = 'PL4fGSI1pDJn5Vi4RJX33LnETbjMhmPc9V';
-	if ($gl == 'BR') $pl = 'PL4fGSI1pDJn7rGBE8kEC0CqTa1nMh9AKB';
-	if ($gl == 'CA') $pl = 'PL4fGSI1pDJn57Q7WbODbmXjyjgXi0BTyD';
-	if ($gl == 'CL') $pl = 'PL4fGSI1pDJn777t00zYu_BKjXHUdhkXH9';
-	if ($gl == 'CO') $pl = 'PL4fGSI1pDJn6CW97F1vSZOkoU7k7VsYk9';
-	if ($gl == 'CR') $pl = 'PL4fGSI1pDJn6U9fUfBkfy3uyXE7Rtvo4b';
-	if ($gl == 'CZ') $pl = 'PL4fGSI1pDJn5wV1AgglmIN_8okwTkz9WT';
-	if ($gl == 'DK') $pl = 'PL4fGSI1pDJn51jFsgXEIR7WdKBychJiMU';
-	if ($gl == 'DO') $pl = 'PL4fGSI1pDJn4C36SQoHh9fII-EXde2i3k';
-	if ($gl == 'EC') $pl = 'PL4fGSI1pDJn7K4bdLZJ5GppzLDAihF58q';
-	if ($gl == 'SV') $pl = 'PL4fGSI1pDJn6ALv-WRypOl0nGaLgtW6nC';
-	if ($gl == 'EE') $pl = 'PL4fGSI1pDJn7uCBUO9GemJda1xfqmvV7_';
-	if ($gl == 'FI') $pl = 'PL4fGSI1pDJn4T5TECl_90hfJsPUu1yi2y';
-	if ($gl == 'FR') $pl = 'PL4fGSI1pDJn7bK3y1Hx-qpHBqfr6cesNs';
-	if ($gl == 'DE') $pl = 'PL4fGSI1pDJn6KpOXlp0MH8qA9tngXaUJ-';
-	if ($gl == 'GT') $pl = 'PL4fGSI1pDJn7NCQ_U0nwlhidgZ8E3uBQw';
-	if ($gl == 'HN') $pl = 'PL4fGSI1pDJn5ZVtAKP9-OKnn09CJ-Znpt';
-	if ($gl == 'HU') $pl = 'PL4fGSI1pDJn6K3QY1nHyhOGQqNCBGbMKi';
-	if ($gl == 'IS') $pl = 'PL4fGSI1pDJn6pwJw_mb31TUqc9C_gpskG';
-	if ($gl == 'IN') $pl = 'PL4fGSI1pDJn4pTWyM3t61lOyZ6_4jcNOw';
-	if ($gl == 'IE') $pl = 'PL4fGSI1pDJn5S_UFt83P-RlBC4CR3JYuo';
-	if ($gl == 'IL') $pl = 'PL4fGSI1pDJn4ECcNLNscMAPND-Degbd5N';
-	if ($gl == 'IT') $pl = 'PL4fGSI1pDJn5JiDypHxveEplQrd7XQMlX';
-	if ($gl == 'JP') $pl = 'PL4fGSI1pDJn4-UIb6RKHdxam-oAUULIGB';
-	if ($gl == 'KE') $pl = 'PL4fGSI1pDJn7z-3xqv1Ujjobcy2pjpZAA';
-	if ($gl == 'LU') $pl = 'PL4fGSI1pDJn4ie_xg2ndQYSEeZrFYvkQf';
-	if ($gl == 'MX') $pl = 'PL4fGSI1pDJn6fko1AmNa_pdGPZr5ROFvd';
-	if ($gl == 'NL') $pl = 'PL4fGSI1pDJn7CXu1B1U0lYQ0qfPB9TVfa';
-	if ($gl == 'NZ') $pl = 'PL4fGSI1pDJn6SZ8psSiS6j-QgUACJK4gC';
-	if ($gl == 'NI') $pl = 'PL4fGSI1pDJn7eCAxG3AuCuottnW_D5C5w';
-	if ($gl == 'NG') $pl = 'PL4fGSI1pDJn6Au0oeuQPsd1iFyiU8Br9I';
-	if ($gl == 'NO') $pl = 'PL4fGSI1pDJn7ywehQhyuuPWo3ayrdSOHn';
-	if ($gl == 'PA') $pl = 'PL4fGSI1pDJn4G4B-V4UTrxD7l5mE9cPS-';
-	if ($gl == 'PY') $pl = 'PL4fGSI1pDJn5G0B8V2PSgs7O9EA4gF5m_';
-	if ($gl == 'PE') $pl = 'PL4fGSI1pDJn4k5jOJjYpq8pluME-gNAnh';
-	if ($gl == 'PL') $pl = 'PL4fGSI1pDJn68fmsRw9f6g-NzU5UA45v1';
-	if ($gl == 'PT') $pl = 'PL4fGSI1pDJn7H0X0bZN4C-I6YeldOvPku';
-	if ($gl == 'RO') $pl = 'PL4fGSI1pDJn5G2T6hrqwSS7ajUA7y4S5l';
-	if ($gl == 'RU') $pl = 'PL4fGSI1pDJn5C8dBiYt0BTREyCHbZ47qc';
-	if ($gl == 'RS') $pl = 'PL4fGSI1pDJn79dpGvfySMY9w43BluD4lI';
-	if ($gl == 'ZA') $pl = 'PL4fGSI1pDJn7xvqMZR_9OgljLcMQpuKXN';
-	if ($gl == 'KR') $pl = 'PL4fGSI1pDJn6jXS_Tv_N9B8Z0HTRVJE0m';
-	if ($gl == 'ES') $pl = 'PL4fGSI1pDJn6sMPCoD7PdSlEgyUylgxuT';
-	if ($gl == 'SE') $pl = 'PL4fGSI1pDJn7S_JFSuBHol2RH9WphaqzS';
-	if ($gl == 'CH') $pl = 'PL4fGSI1pDJn6Nhmcqn4xr769wwoMmS3DI';
-	if ($gl == 'TZ') $pl = 'PL4fGSI1pDJn4CI0qH2JZYs2qGXo1itpCG';
-	if ($gl == 'TR') $pl = 'PL4fGSI1pDJn5tdVDtIAZArERm_vv4uFCR';
-	if ($gl == 'UG') $pl = 'PL4fGSI1pDJn74qLP73Smcy0gAbGWi71Gr';
-	if ($gl == 'UA') $pl = 'PL4fGSI1pDJn4E_HoW5HB-w5vFPkYfo3dB';
-	if ($gl == 'GB') $pl = 'PL4fGSI1pDJn6_f5P3MnzXg9l3GDfnSlXa';
-	if ($gl == 'US') $pl = 'PL4fGSI1pDJn6O1LS0XSdF3RyO0Rq_LDeI';
-	if ($gl == 'UY') $pl = 'PL4fGSI1pDJn5caN5mlO8NWCPSyuHkQANg';
-	if ($gl == 'ZW') $pl = 'PL4fGSI1pDJn7JsFoxkKlW3Zoi_snioCcs';
-	setcookie('playlist', $pl, time() + 86400 * 365);
-	return $pl;
 }
 ?>
 <!DOCTYPE html>
@@ -178,10 +114,10 @@ function country() {
 			<optgroup label="—————————"></optgroup>
 			<optgroup label="♫ Individual"></optgroup>
 			<optgroup label="—————————"></optgroup>
+			<option value="PL0KrRV0rbVN_2obINsiQO7xAa8x1vA1TS">Goldies</option>
 			<option value="PL0KrRV0rbVN-21saESr1SBcKls4kZy09W">Global</option>
 			<option value="PL0KrRV0rbVN-Rnulv8HWqd2v-IWQ7gMUs">Hebrew</option>
 			<option value="PL0KrRV0rbVN_xUARb6NIifWlMcLsJSmDo">Turkish</option>
-			<option value="PL0KrRV0rbVN_2obINsiQO7xAa8x1vA1TS">Goldies</option>
 		</select>
 		<main>
 			<nav>
