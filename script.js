@@ -1,5 +1,6 @@
 $(function() {
-	$('[name="playlist"]').val(Cookies.get('playlist'));
+	if (Cookies.get('playlist')) $('[name="playlist"]').val(Cookies.get('playlist'));
+	else $('[name="playlist"]').val('PL0KrRV0rbVN-21saESr1SBcKls4kZy09W');
 	if (Cookies.get('shuffle')) $('.shuffle').addClass('on');
 	var folder = window.location.pathname.split('/').slice(0, -1).join('/'),
 	audio = $('audio')[0],
